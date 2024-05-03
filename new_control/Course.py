@@ -1,9 +1,9 @@
 from co_ import Course, session
-def create_course(help_id, cname, qid, session):
+def create_course(CName,CDes,Ccategory, session):
     """
     在Course表中创建新课程记录
     """
-    new_course = Course(Help_id=help_id, CName=cname, qid=qid)
+    new_course = Course(CName=CName,CDes=CDes,Ccategory=Ccategory)
     session.add(new_course)
     session.commit()
     print(f"新课程记录创建成功, cnumber: {new_course.CNumber}")

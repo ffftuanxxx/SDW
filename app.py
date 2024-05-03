@@ -2,6 +2,11 @@ from flask import render_template, request, redirect, url_for, flash
 from new_control.register import delete_user
 from app_pre import db,app
 import register_action
+<<<<<<< HEAD
+import addcourse_action
+=======
+import request_action
+>>>>>>> 2ced5845fb35431fdfbc0d20f8beead457219b38
 
 
 class User(db.Model):
