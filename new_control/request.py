@@ -1,4 +1,4 @@
-from app2.co_ import Request, session
+from co_ import Request, session
 def create_request(qid, courseid, explanation, scoreupdate, requesttype, session):
     """
     在Request表中创建新请求记录
@@ -19,7 +19,15 @@ def get_request(requestid, session):
         print(f"错误: 请求ID {requestid} 不存在!")
         return None
     return request
-
+def get_all_requests(session):
+    """
+    查询Request表中的所有请求记录
+    """
+    requests = session.query(Request).all()
+    if not requests:
+        print("错误: Request表中没有任何记录!")
+        return None
+    return requests
 def update_request(requestid, qid, courseid, explanation, scoreupdate, requesttype, session):
     """
     更新Request表中的请求记录
@@ -37,6 +45,21 @@ def update_request(requestid, qid, courseid, explanation, scoreupdate, requestty
 
     session.commit()
     print(f"请求ID {requestid} 更新成功!")
+
+def approve_request_(requestid,approve, session):
+    """
+    更新Request表中的请求记录
+    """
+    request = session.query(Request).filter_by(requestid=requestid).first()
+    if not request:
+        print(f"错误: 请求ID {requestid} 不存在!")
+        return
+
+    request.approved = approve
+
+    session.commit()
+    print(f"请求ID {requestid} 更新成功!")
+    return requestid
 
 def delete_request(requestid, session):
     """
