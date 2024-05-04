@@ -1,4 +1,4 @@
-from app2.co_ import HelpTopic, session
+from co_ import HelpTopic, session
 def create_helptopic(title, topicq, topica, session):
     """
     在HelpTopic表中创建新帮助主题

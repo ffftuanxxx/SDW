@@ -1,4 +1,4 @@
-from app2.co_ import Variation,session
+from co_ import Variation,session
 def create_variation(vtext, session):
     """
     在Variation表中创建新记录
