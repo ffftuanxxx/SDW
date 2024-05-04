@@ -48,6 +48,11 @@ def delete_helptopic(topic_id, session):
     session.commit()
     print(f"主题ID {topic_id} 删除成功!")
 
+
+def get_all_helptopics(session):
+    return session.query(HelpTopic).all()
+
+
 if __name__ == "__main__":
     # 创建新主题
     new_id = create_helptopic("Python基础", "什么是变量?", "变量用于存储值...", session)

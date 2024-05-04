@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create New Help Topic</h1>
+<form method="post">
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" required>
+    <label for="topicq">Question:</label>
+    <input type="text" name="topicq" id="topicq" required>
+    <label for="topica">Answer:</label>
+    <input type="text" name="topica" id="topica" required>
+    <input type="submit" value="Create Help Topic">
+</form>
+<button onclick="window.history.back();">Back</button>
+{% endblock %}

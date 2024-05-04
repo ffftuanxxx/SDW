@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Help Topics</h1>
+<a href="{{ url_for('create_helptopic_view') }}"><button>Create New Help Topic</button></a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for topic in topics %}
+        <tr>
+            <td>{{ topic.topic_id }}</td>
+            <td>{{ topic.title }}</td>
+            <td>{{ topic.topicq }}</td>
+            <td>{{ topic.topica }}</td>
+            <td>
+                <a href="{{ url_for('update_helptopic_view', topic_id=topic.topic_id) }}">Edit</a>
+                <form action="{{ url_for('delete_helptopic_view', topic_id=topic.topic_id) }}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick="window.history.back();">Back</button>
+{% endblock %}
