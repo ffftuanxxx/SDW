@@ -19,7 +19,7 @@ def get_llm(llm_id, session):
         return None
     return llm
 
-def update_llm(llm_id, homeproblem, usedanswer, answerimage, llmscore, comments, session):
+def update_llm(llm_id, llmscore, comments, session):
     """
     更新LLM表中的记录
     """
@@ -28,9 +28,6 @@ def update_llm(llm_id, homeproblem, usedanswer, answerimage, llmscore, comments,
         print(f"错误: LLM ID {llm_id} 不存在!")
         return
 
-    llm.homeproblem = homeproblem
-    llm.usedanswer = usedanswer
-    llm.answerimage = answerimage
     llm.llmscore = llmscore
     llm.comments = comments
 

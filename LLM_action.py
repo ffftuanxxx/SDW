@@ -40,16 +40,12 @@ def view_llm(llm_id):
 def update_llm_view(llm_id):
     llm = get_llm(llm_id=llm_id, session=db.session)
     if request.method == 'POST':
-        homeproblem = request.form.get('homeproblem')
-        usedanswer = request.form.get('usedanswer')
-        answerimage = request.form.get('answerimage')
         llmscore = request.form.get('llmscore')
         comments = request.form.get('comments')
 
         try:
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
-            update_llm(llm_id=llm_id, homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage,
-                       llmscore=llmscore, comments=comments, session=db.session)
+            update_llm(llm_id=llm_id, llmscore=llmscore, comments=comments, session=db.session)
             flash('LLM record updated successfully!', 'success')
             return redirect(url_for('update_llm_view', llm_id=llm_id))
         except ValueError:
