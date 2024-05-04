@@ -45,6 +45,12 @@ def delete_variation(vcode, session):
     session.commit()
     print(f"变体ID {vcode} 删除成功!")
 
+
+def get_all_variations(session):
+    return session.query(Variation).all()
+
+
+
 if __name__ == "__main__":
     # 创建新变体
     new_code = create_variation("这是一个测试变体", session)

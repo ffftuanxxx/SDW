@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Variations</h1>
+<a href="{{ url_for('create_variation_view') }}"><button>Create New Variation</button></a>
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Text</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for variation in variations %}
+        <tr>
+            <td>{{ variation.vcode }}</td>
+            <td>{{ variation.vtext }}</td>
+            <td>
+                <a href="{{ url_for('update_variation_view', vcode=variation.vcode) }}">Edit</a>
+                <form action="{{ url_for('delete_variation_view', vcode=variation.vcode) }}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

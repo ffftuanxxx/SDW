@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Update Variation</h1>
+{% if variation %}
+<form method="post">
+    <label for="vtext">Variation Text:</label>
+    <input type="text" name="vtext" id="vtext" value="{{ variation.vtext }}" required>
+    <input type="submit" value="Update Variation">
+</form>
+{% else %}
+<p>Requested variation not found.</p>
+{% endif %}
+
+<button onclick="window.history.back();">Back</button>
+{% endblock %}
