@@ -1,4 +1,4 @@
-from app2.co_ import LLM, session
+from co_ import LLM, session
 def create_llm(answerid, answerimage, llmscore, comments, session):
     """
     在LLM表中创建新记录
@@ -48,6 +48,12 @@ def delete_llm(llm_id, session):
     session.delete(llm)
     session.commit()
     print(f"LLM ID {llm_id} 删除成功!")
+
+def get_all_llms(session):
+    """
+    从数据库中获取所有LLM记录
+    """
+    return session.query(LLM).all()
 
 if __name__ == "__main__":
     # 创建新记录

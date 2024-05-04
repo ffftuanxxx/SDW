@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>LLM Records</h1>
+
+<!-- 添加新记录的按钮 -->
+<a href="{{ url_for('submit_llm') }}"><button>Create New LLM</button></a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Answer ID</th>
+            <th>Image</th>
+            <th>Score</th>
+            <th>Comments</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for llm in llms %}
+        <tr>
+            <td>{{ llm.llm_id }}</td>
+            <td>{{ llm.answerid }}</td>
+            <td>{{ llm.answerimage }}</td>
+            <td>{{ llm.llmscore }}</td>
+            <td>{{ llm.comments }}</td>
+            <td>
+                <a href="{{ url_for('view_llm', llm_id=llm.llm_id) }}">View Details</a>
+                <a href="{{ url_for('update_llm_view', llm_id=llm.llm_id) }}">Edit</a>
+                <form action="{{ url_for('delete_llm_view', llm_id=llm.llm_id) }}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 添加返回上一页的按钮 -->
+<button onclick="window.history.back();">Back</button>
+
+{% endblock %}

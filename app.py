@@ -3,7 +3,7 @@ from new_control.register import delete_user
 from app_pre import db,app
 import register_action
 import request_action
-
+import LLM_action
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

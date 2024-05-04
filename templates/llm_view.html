@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>LLM Details</h1>
+{% if llm %}
+    <p>ID: {{ llm.llm_id }}</p>
+    <p>Answer ID: {{ llm.answerid }}</p>
+    <p>Answer Image: {{ llm.answerimage }}</p>
+    <p>LLM Score: {{ llm.llmscore }}</p>
+    <p>Comments: {{ llm.comments }}</p>
+{% else %}
+    <p>No details available for this LLM record.</p>
+{% endif %}
+<button onclick="window.history.back();">Back</button>
+{% endblock %}
