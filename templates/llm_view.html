@@ -4,10 +4,8 @@
 <h1>LLM Details</h1>
 {% if llm %}
     <p>homework problem: {{ llm.homeproblem }}</p>
-    <p>used LLM: {{ llm.usedanswer}}</p>
     <p>Answer Image: {{ llm.answerimage }}</p>
     <p>LLM Score: {{ llm.llmscore }}</p>
-    <p>Comments: {{ llm.comments }}</p>
 {% else %}
     <p>No details available for this LLM record.</p>
 {% endif %}
