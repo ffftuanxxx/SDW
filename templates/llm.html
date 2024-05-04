@@ -10,7 +10,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Answer ID</th>
+            <th>homework</th>
+            <th>used llm</th>
             <th>Image</th>
             <th>Score</th>
             <th>Comments</th>
@@ -21,7 +22,8 @@
         {% for llm in llms %}
         <tr>
             <td>{{ llm.llm_id }}</td>
-            <td>{{ llm.answerid }}</td>
+            <td>{{ llm.homeproblem }}</td>
+            <td>{{ llm.usedanswer}}</td>
             <td>{{ llm.answerimage }}</td>
             <td>{{ llm.llmscore }}</td>
             <td>{{ llm.comments }}</td>

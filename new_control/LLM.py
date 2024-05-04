@@ -1,9 +1,9 @@
 from co_ import LLM, session
-def create_llm(answerid, answerimage, llmscore, comments, session):
+def create_llm(homeproblem, usedanswer, answerimage, llmscore, comments, session):
     """
     在LLM表中创建新记录
     """
-    new_llm = LLM(answerid=answerid, answerimage=answerimage, llmscore=llmscore, comments=comments)
+    new_llm = LLM(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage, llmscore=llmscore, comments=comments)
     session.add(new_llm)
     session.commit()
     print(f"新LLM记录创建成功, llm_id: {new_llm.llm_id}")
@@ -19,7 +19,7 @@ def get_llm(llm_id, session):
         return None
     return llm
 
-def update_llm(llm_id, answerid, answerimage, llmscore, comments, session):
+def update_llm(llm_id, homeproblem, usedanswer, answerimage, llmscore, comments, session):
     """
     更新LLM表中的记录
     """
@@ -28,7 +28,8 @@ def update_llm(llm_id, answerid, answerimage, llmscore, comments, session):
         print(f"错误: LLM ID {llm_id} 不存在!")
         return
 
-    llm.answerid = answerid
+    llm.homeproblem = homeproblem
+    llm.usedanswer = usedanswer
     llm.answerimage = answerimage
     llm.llmscore = llmscore
     llm.comments = comments
@@ -57,15 +58,5 @@ def get_all_llms(session):
 
 if __name__ == "__main__":
     # 创建新记录
-    new_id = create_llm(1, "answer.jpg", 4, "很好的回答", session)
+    new_id = create_llm("156", "answer.jpg", "2626",6,"sss", session)
     print(f"新记录ID: {new_id}")
-
-    # 获取记录信息
-    llm = get_llm(new_id, session)
-    print(f"记录: {llm.answerid}, {llm.answerimage}, {llm.llmscore}, {llm.comments}")
-
-    # 更新记录
-    update_llm(new_id, 2, "new.png", 5, "非常棒的回答", session)
-
-    # 删除记录
-    delete_llm(new_id, session)

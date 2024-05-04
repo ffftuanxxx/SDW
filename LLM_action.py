@@ -7,26 +7,24 @@ from new_control.LLM import create_llm,delete_llm,update_llm,get_llm,get_all_llm
 @app.route('/submit_llm', methods=['GET', 'POST'])
 def submit_llm():
     if request.method == 'POST':
-        answerid = request.form.get('answerid')
+        homeproblem = request.form.get('homeproblem')
+        usedanswer = request.form.get('usedanswer')
         answerimage = request.form.get('answerimage')
         llmscore = request.form.get('llmscore')
         comments = request.form.get('comments')
 
         try:
-            answerid = int(answerid)
-            llmscore = float(llmscore)  # 如果LLM分数是浮点类型
-
-            new_llm_id = create_llm(answerid=answerid, answerimage=answerimage,
-                                    llmscore=llmscore, comments=comments, session=db.session)
-            flash('LLM record submitted successfully!', 'success')
+            llmscore = float(llmscore)  # 确认 llmscore 是浮点数
+            llm_id = create_llm(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage,
+                                llmscore=llmscore, comments=comments, session=db.session)
+            flash('LLM record created successfully!', 'success')
             return redirect(url_for('submit_llm'))
         except ValueError:
-            flash('Invalid input values. Please enter valid values for all fields.', 'error')
+            flash('Invalid input for LLM score. Please enter a valid number.', 'error')
         except Exception as e:
             flash(str(e), 'error')
 
     return render_template('submit_llm.html')
-
 
 @app.route('/view_llm/<int:llm_id>')
 def view_llm(llm_id):
@@ -42,18 +40,20 @@ def view_llm(llm_id):
 def update_llm_view(llm_id):
     llm = get_llm(llm_id=llm_id, session=db.session)
     if request.method == 'POST':
-        answerid = request.form.get('answerid')
+        homeproblem = request.form.get('homeproblem')
+        usedanswer = request.form.get('usedanswer')
         answerimage = request.form.get('answerimage')
         llmscore = request.form.get('llmscore')
         comments = request.form.get('comments')
 
         try:
-            answerid = int(answerid)  # 确认 answerid 是整数
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
-            update_llm(llm_id=llm_id, answerid=answerid, answerimage=answerimage,
+            update_llm(llm_id=llm_id, homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage,
                        llmscore=llmscore, comments=comments, session=db.session)
             flash('LLM record updated successfully!', 'success')
             return redirect(url_for('update_llm_view', llm_id=llm_id))
+        except ValueError:
+            flash('Invalid input for LLM score. Please enter a valid number.', 'error')
         except Exception as e:
             flash(str(e), 'error')
 

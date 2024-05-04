@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <h1>Update LLM Record</h1>
+{% if llm %}
 <form method="post">
-    <label for="answerid">Answer ID</label>
-    <input type="number" name="answerid" id="answerid" required value="{{ llm.answerid if llm else '' }}">
+    <label for="homeproblem">Home Problem</label>
+    <input type="text" name="homeproblem" id="homeproblem" value="{{ llm.homeproblem }}" required>
+
+    <label for="usedanswer">Used Answer</label>
+    <input type="text" name="usedanswer" id="usedanswer" value="{{ llm.usedanswer }}" required>
 
     <label for="answerimage">Answer Image</label>
-    <input type="text" name="answerimage" id="answerimage" required value="{{ llm.answerimage if llm else '' }}">
+    <input type="text" name="answerimage" id="answerimage" value="{{ llm.answerimage }}" required>
 
     <label for="llmscore">LLM Score</label>
-    <input type="number" step="0.1" name="llmscore" id="llmscore" required value="{{ llm.llmscore if llm else '' }}">
+    <input type="number" step="0.1" name="llmscore" id="llmscore" value="{{ llm.llmscore }}" required>
 
     <label for="comments">Comments</label>
-    <input type="text" name="comments" id="comments" required value="{{ llm.comments if llm else '' }}">
+    <input type="text" name="comments" id="comments" value="{{ llm.comments }}" required>
 
-    <input type="submit" value="Update">
+    <input type="submit" value="Update LLM Record">
 </form>
+{% else %}
+<p>Requested LLM record not found.</p>
+{% endif %}
 <button onclick="window.history.back();">Back</button>
 {% endblock %}

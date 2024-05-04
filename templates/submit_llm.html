@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>{% block title %}Submit LLM Record{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
+<h1>Create LLM Record</h1>
 <form method="post">
-    <label for="answerid">Answer ID</label>
-    <input type="number" name="answerid" id="answerid" required>
+    <label for="homeproblem">Home Problem</label>
+    <input type="text" name="homeproblem" id="homeproblem" required>
 
-    <label for="answerimage">Answer Image URL</label>
+    <label for="usedanswer">Used Answer</label>
+    <input type="text" name="usedanswer" id="usedanswer" required>
+
+    <label for="answerimage">Answer Image</label>
     <input type="text" name="answerimage" id="answerimage" required>
 
     <label for="llmscore">LLM Score</label>
-    <input type="number" name="llmscore" id="llmscore" step="0.01" required>
+    <input type="number" step="0.1" name="llmscore" id="llmscore" required>
 
     <label for="comments">Comments</label>
-    <textarea name="comments" id="comments" required></textarea>
+    <input type="text" name="comments" id="comments" required>
 
     <input type="submit" value="Submit LLM Record">
 </form>
