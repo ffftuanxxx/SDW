@@ -1,14 +1,21 @@
 """
 修改AssignQ
 """
-from co_ import AssignQ, session
+from co_ import AssignQ, session, Course
 
-def create_assignq(aid, qtext, category, picturename, session):
+def create_assignq(cname, qtext, category, picturename, session):
     """
-    在AssignQ表中创建新问题
+    在AssignQ表中为指定课程创建新问题
     """
+    # 获取指定课程
+    course = session.query(Course).filter_by(CName=cname).first()
+
+    if not course:
+        print(f"错误: 课程名称 '{cname}' 不存在!")
+        return None
+
     # 创建新问题
-    new_question = AssignQ(aid=aid, qtext=qtext, category=category, picturename=picturename)
+    new_question = AssignQ(course=course, qtext=qtext, category=category, picturename=picturename)
     session.add(new_question)
     session.commit()
 

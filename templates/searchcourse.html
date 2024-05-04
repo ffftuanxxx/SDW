@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Search Page{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h2>Welcome to Search page!</h2>
+  <p>Please search by course name or id, course category, or score</p>
+
+  <form method="post" action="{{ url_for('search') }}">
+    <label for="search_type">Search By What?</label>
+    <select name="search_type" id="search_type">
+      <option value="course_name">Course Name</option>
+      <option value="course_id">Course ID</option>
+    </select>
+
+    <label for="search_info">Search Information (required)</label>
+    <input type="text" name="search_info" id="search_info" required>
+
+    <input type="submit" value="Search Now">
+  </form>
+{% endblock %}
