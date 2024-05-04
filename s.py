@@ -43,7 +43,7 @@ def send_email(receivers, subject, content):
 if __name__ == '__main__':
 
     # 设置收件人列表和邮件内容
-    receivers = ['r130026041@mail.uic.edu.cn','r130026100@mail.uic.edu.cn']
+    receivers = ['r130026041@mail.uic.edu.cn','r130026083@mail.uic.edu.cn']
     subject = '验证码'
     content = '验证码为：您是sb'
 
