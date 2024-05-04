@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create New Course</h1>
+<form method="post">
+    <label for="help_id">Help ID:</label>
+    <input type="text" name="help_id" id="help_id" required>
+    <label for="cname">Course Name:</label>
+    <input type="text" name="cname" id="cname" required>
+    <label for="qid">Question ID:</label>
+    <input type="text" name="qid" id="qid" required>
+    <input type="submit" value="Create Course">
+</form>
+<button onclick="window.history.back();">Back</button>
+{% endblock %}

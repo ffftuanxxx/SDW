@@ -52,6 +52,9 @@ def get_course(cnumber, session):
 
     return course
 
+def get_all_courses(session):
+    return session.query(Course).all()
+
 if __name__ == "__main__":
     # 创建新课程记录
     new_cnumber = create_course(1, "计算机导论", "cs101", session)
