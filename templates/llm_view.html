@@ -10,4 +10,6 @@
     <p>No details available for this LLM record.</p>
 {% endif %}
 <button onclick="window.history.back();">Back</button>
+<a href="{{ url_for('submit_llm') }}"><button>Create New LLM</button></a>
+<a href="{{ url_for('update_llm_view', llm_id=llm.llm_id) }}">Edit</a>
 {% endblock %}
