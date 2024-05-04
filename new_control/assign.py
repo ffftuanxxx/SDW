@@ -68,6 +68,10 @@ def get_assignq(qid, session):
 
     return question
 
+
+def get_all_assignqs(session):
+    return session.query(AssignQ).all()
+
 if __name__ == "__main__":
     # 创建新问题
     new_qid = create_assignq(100, "这是一个测试问题?", "计算机科学", "test.jpg", session)

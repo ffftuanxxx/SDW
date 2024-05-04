@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Update Question</h1>
+{% if question %}
+<form method="post">
+    <label for="aid">Assignment ID:</label>
+    <input type="text" name="aid" id="aid" value="{{ question.aid }}" required>
+    <label for="qtext">Question Text:</label>
+    <input type="text" name="qtext" id="qtext" value="{{ question.qtext }}" required>
+    <label for="category">Category:</label>
+    <input type="text" name="category" id="category" value="{{ question.category }}" required>
+    <label for="picturename">Picture Name:</label>
+    <input type="text" name="picturename" id="picturename" value="{{ question.picturename }}" required>
+    <input type="submit" value="Update Question">
+</form>
+{% else %}
+<p>Requested question not found.</p>
+{% endif %}
+<button onclick="window.history.back();">Back</button>
+{% endblock %}

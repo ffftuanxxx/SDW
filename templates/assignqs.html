@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Assignment Questions</h1>
+<a href="{{ url_for('create_assignq_view') }}"><button>Create New Question</button></a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Assignment ID</th>
+            <th>Question Text</th>
+            <th>Category</th>
+            <th>Picture Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+        <tr>
+            <td>{{ question.qid }}</td>
+            <td>{{ question.aid }}</td>
+            <td>{{ question.qtext }}</td>
+            <td>{{ question.category }}</td>
+            <td>{{ question.picturename }}</td>
+            <td>
+                <a href="{{ url_for('update_assignq_view', qid=question.qid) }}">Edit</a>
+                <form action="{{ url_for('delete_assignq_view', qid=question.qid) }}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button onclick="window.history.back();">Back</button>
+{% endblock %}

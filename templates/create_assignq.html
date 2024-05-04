@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create New Question</h1>
+<form method="post">
+    <label for="aid">Assignment ID:</label>
+    <input type="text" name="aid" id="aid" required>
+    <label for="qtext">Question Text:</label>
+    <input type="text" name="qtext" id="qtext" required>
+    <label for="category">Category:</label>
+    <input type="text" name="category" id="category" required>
+    <label for="picturename">Picture Name:</label>
+    <input type="text" name="picturename" id="picturename" required>
+    <input type="submit" value="Create Question">
+</form>
+<button onclick="window.history.back();">Back</button>
+{% endblock %}

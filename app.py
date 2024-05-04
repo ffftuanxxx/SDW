@@ -6,6 +6,7 @@ import request_action
 import LLM_action
 import var_action
 import helpT_action
+import assign_action
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
