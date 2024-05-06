@@ -43,9 +43,9 @@ def send_email(receivers, subject, content):
 if __name__ == '__main__':
 
     # 设置收件人列表和邮件内容
-    receivers = ['r130026103@mail.uic.edu.cn']
+    receivers = ['goliathli@uic.edu.cn']
     subject = '验证码'
-    content = '验证码为：咱不知道啊，咱也不会啦，咱是废物'
+    content = '咱是five'
 
     # 发送邮件
     if send_email( receivers, subject, content):

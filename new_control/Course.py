@@ -1,4 +1,4 @@
-from co_ import Course, session
+from co_ import Course, session,AssignQ
 from sqlalchemy import or_
 def create_course(CName,CDes,Ccategory, session):
     """

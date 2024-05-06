@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Assignments for {{ course.CName }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h2>Assignments for {{ course.CName }}</h2>
+  {% if assignments %}
+    <table>
+      <tr>
+        <th>Question ID</th>
+        <th>Question Text</th>
+        <th>Category</th>
+        <th>Picture Name</th>
+      </tr>
+      {% for assignment in assignments %}
+        <tr>
+          <td>{{ assignment.qid }}</td>
+          <td>{{ assignment.qtext }}</td>
+          <td>{{ assignment.category }}</td>
+          <td>{{ assignment.picturename }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No assignments found for this course.</p>
+  {% endif %}
+{% endblock %}

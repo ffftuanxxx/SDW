@@ -1,6 +1,7 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from new_control.Course import get_course_name,get_course_num
 from app_pre import db,app
+from co_ import Course, AssignQ
 # 其他代码...
 
 @app.route('/searchcourse', methods=['GET', 'POST'])
@@ -32,3 +33,12 @@ def search_results():
         courses = [course] if course else []
 
     return render_template('courseresult.html', courses=courses)
+
+
+
+
+@app.route('/course/<course_number>/assignments')
+def course_assignments(course_number):
+    course = session.query(Course).filter_by(CNumber=course_number).first_or_404()
+    assignments = session.query(AssignQ).filter_by(course_id=course.id).all()
+    return render_template('course_assignments.html', course=course, assignments=assignments)
