@@ -18,7 +18,7 @@ def send_email(receivers, subject, content):
     """
         # 读取环境变量中的敏感信息 发送邮箱账户和对应授权码
     sender = '2879907402@qq.com'
-    password = 'ljwjlubzknpmdgad'
+    password = 'wyectrxugvevdeca'
     try:
         # 构造邮件对象
         msg = MIMEText(content, 'plain', 'utf-8')
@@ -43,9 +43,9 @@ def send_email(receivers, subject, content):
 if __name__ == '__main__':
 
     # 设置收件人列表和邮件内容
-    receivers = ['r130026041@mail.uic.edu.cn','r130026083@mail.uic.edu.cn']
+    receivers = ['r130026103@mail.uic.edu.cn']
     subject = '验证码'
-    content = '验证码为：您是sb'
+    content = '验证码为：咱不知道啊，咱也不会啦，咱是废物'
 
     # 发送邮件
     if send_email( receivers, subject, content):
