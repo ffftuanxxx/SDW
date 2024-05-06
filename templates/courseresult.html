@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Search Results{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h2>Search Results</h2>
+  {% if courses %}
+    <table>
+      <tr>
+        <th>Course Number</th>
+        <th>Course Name</th>
+        <th>Course Description</th>
+        <th>Course Category</th>
+      </tr>
+      {% for course in courses %}
+        <tr>
+          <td>{{ course.CNumber }}</td>
+          <td>{{ course.CName }}</td>
+          <td>{{ course.CDes }}</td>
+          <td>{{ course.Ccategory }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No courses found.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Create New Assignment Question{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="cname">Course Name:</label>
+    <input type="text" name="cname" id="cname" required>
+    <br>
+    <label for="aid">AID</label>
+    <input type="text" name="aid" id="aid" required>
+    <br>
+    <label for="qtext">Question Text:</label>
+    <textarea name="qtext" id="qtext" required></textarea>
+    <br>
+    <label for="category">Category:</label>
+    <input type="text" name="category" id="category" required>
+    <br>
+    <label for="picturename">Picture Name (if any):</label>
+    <input type="text" name="picturename" id="picturename">
+    <br>
+    <input type="submit" value="Create Question">
+  </form>
+{% endblock %}

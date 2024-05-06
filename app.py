@@ -2,12 +2,11 @@ from flask import render_template, request, redirect, url_for, flash
 from new_control.register import delete_user
 from app_pre import db,app
 import register_action
+import addcourse_action
 import request_action
-import LLM_action
-import var_action
-import helpT_action
-import assign_action
-import course_action
+import search_course
+import add_assignment_action
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
