@@ -2,6 +2,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.utils import formataddr
 
+def sendemail(mail,number):
+    send_email(receivers=[str(mail)],subject="验证码",content=str(number))
 
 def send_email(receivers, subject, content):
     """发送邮件
@@ -19,6 +21,7 @@ def send_email(receivers, subject, content):
         # 读取环境变量中的敏感信息 发送邮箱账户和对应授权码
     sender = '2879907402@qq.com'
     password = 'wyectrxugvevdeca'
+    print(receivers,content)
     try:
         # 构造邮件对象
         msg = MIMEText(content, 'plain', 'utf-8')
@@ -35,6 +38,7 @@ def send_email(receivers, subject, content):
             server.sendmail(sender, [receiver], msg.as_string())
 
         server.quit()
+
         return True
     except Exception:
         return False
@@ -43,9 +47,9 @@ def send_email(receivers, subject, content):
 if __name__ == '__main__':
 
     # 设置收件人列表和邮件内容
-    receivers = ['goliathli@uic.edu.cn']
+    receivers = ['r130026041@mail.uic.edu.cn']
     subject = '验证码'
-    content = '咱是five'
+    content = '验证码为：咱不知道啊，咱也不会啦，咱是废物1'
 
     # 发送邮件
     if send_email( receivers, subject, content):
