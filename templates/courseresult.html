@@ -13,6 +13,7 @@
         <th>Course Name</th>
         <th>Course Description</th>
         <th>Course Category</th>
+        <th>Actions</th>
       </tr>
       {% for course in courses %}
         <tr>
@@ -20,6 +21,9 @@
           <td>{{ course.CName }}</td>
           <td>{{ course.CDes }}</td>
           <td>{{ course.Ccategory }}</td>
+          <td>
+            <a href="{{ url_for('course_assignments', course_id=course.CNumber) }}">View Assignments</a>
+          </td>
         </tr>
       {% endfor %}
     </table>
