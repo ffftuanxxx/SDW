@@ -12,14 +12,18 @@
         <th>Question ID</th>
         <th>Question Text</th>
         <th>Category</th>
-        <th>Picture Name</th>
+        <!--<th>Picture Name</th>-->
+        <th>action</th>
       </tr>
       {% for assignment in assignments %}
         <tr>
           <td>{{ assignment.qid }}</td>
           <td>{{ assignment.qtext }}</td>
           <td>{{ assignment.category }}</td>
-          <td>{{ assignment.picturename }}</td>
+          <!--<td>{{ assignment.picturename }}</td>-->
+          <td>
+            <a href="{{ url_for('qDetail', qid=assignment.qid) }}">View question</a>
+          </td>
         </tr>
       {% endfor %}
     </table>

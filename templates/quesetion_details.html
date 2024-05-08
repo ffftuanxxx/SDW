@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Question detail of {{ details.qid }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h2>Question detail of {{ details.qtext }}</h2>
+  <table>
+    <tr>
+      <th>Question ID</th>
+      <th>Question Text</th>
+      <th>Category</th>
+      <th>Picture Name</th>
+    </tr>
+    <tr>
+      <td>{{ details.qid }}</td>
+      <td>{{ details.qtext }}</td>
+      <td>{{ details.category }}</td>
+      <td>{{ details.picturename }}</td>
+    </tr>
+  </table>
+{% endblock %}
