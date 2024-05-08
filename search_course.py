@@ -39,6 +39,6 @@ def search_results():
 
 @app.route('/course/<course_number>/assignments')
 def course_assignments(course_number):
-    course = session.query(Course).filter_by(CNumber=course_number).first_or_404()
-    assignments = session.query(AssignQ).filter_by(course_id=course.id).all()
+    course = db.session.query(Course).filter_by(CNumber=course_number).first_or_404()
+    assignments = db.session.query(AssignQ).filter_by(course_id=course.CNumber).all()
     return render_template('course_assignments.html', course=course, assignments=assignments)

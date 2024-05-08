@@ -22,7 +22,7 @@
           <td>{{ course.CDes }}</td>
           <td>{{ course.Ccategory }}</td>
           <td>
-            <a href="{{ url_for('course_assignments', course_id=course.CNumber) }}">View Assignments</a>
+            <a href="{{ url_for('course_assignments', course_number=course.CNumber) }}">View Assignments</a>
           </td>
         </tr>
       {% endfor %}
