@@ -1,32 +1,37 @@
 import smtplib
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 from email.utils import formataddr
 
-def sendemail(mail,number):
-    send_email(receivers=[str(mail)],subject="验证码",content=str(number))
-
-def send_email(receivers, subject, content):
-    """发送邮件
+def send_email_with_image(receivers, subject, content, image_path):
+    """发送包含图片的邮件
 
     Args:
-        sender (str): 发件人邮箱地址
-        password (str): 发件人邮箱授权码
         receivers (list): 收件人邮箱地址列表
         subject (str): 邮件主题
         content (str): 邮件内容
+        image_path (str): 图片路径
 
     Returns:
         bool: 邮件是否发送成功
     """
-        # 读取环境变量中的敏感信息 发送邮箱账户和对应授权码
     sender = '2879907402@qq.com'
     password = 'wyectrxugvevdeca'
-    print(receivers,content)
     try:
-        # 构造邮件对象
-        msg = MIMEText(content, 'plain', 'utf-8')
+        # 创建一个MIMEMultipart对象，代表整个邮件
+        msg = MIMEMultipart()
         msg['From'] = formataddr(['From nicead.top', sender])
         msg['Subject'] = subject
+
+        # 添加文本内容
+        msg.attach(MIMEText(content, 'plain', 'utf-8'))
+
+        # 添加图片附件
+        with open(image_path, 'rb') as f:
+            mime = MIMEImage(f.read())
+            mime.add_header('Content-Disposition', 'attachment', filename=image_path)
+            msg.attach(mime)
 
         # 连接邮箱服务器并登录
         server = smtplib.SMTP_SSL('smtp.qq.com', 465)
@@ -38,22 +43,18 @@ def send_email(receivers, subject, content):
             server.sendmail(sender, [receiver], msg.as_string())
 
         server.quit()
-
         return True
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
 
-
 if __name__ == '__main__':
+    receivers = ['r130026083@mail.uic.edu.cn']
+    subject = '色色'
+    content = '请看'
+    image_path = 'C:\\Users\\1\\Pictures\\Saved Pictures\\8.png'  # 图片文件路径
 
-    # 设置收件人列表和邮件内容
-    receivers = ['r130026041@mail.uic.edu.cn']
-    subject = '验证码'
-    content = '验证码为：咱不知道啊，咱也不会啦，咱是废物1'
-
-    # 发送邮件
-    if send_email( receivers, subject, content):
+    if send_email_with_image(receivers, subject, content, image_path):
         print('邮件发送成功')
     else:
         print('邮件发送失败')
-
