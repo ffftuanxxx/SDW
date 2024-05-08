@@ -1,23 +1,41 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜索课程</title>
+</head>
+<body>
+    <h1>搜索课程</h1>
+    <form method="POST" action="/searchcourse">
+        <label for="search_name_num">按名称/编号搜索：</label>
+        <input type="text" name="search_name_num" id="search_name_num" placeholder="请输入搜索信息">
+        <br>
+        <label for="search_category">按课程类别搜索：</label>
+        <input type="text" name="search_category" id="search_category" placeholder="请输入搜索信息">
+        <br>
+        <label for="search_score">按分数搜索：</label>
+        <input type="text" name="search_score" id="search_score" placeholder="请输入搜索信息">
+        <br>
+        <input type="submit" value="搜索">
+    </form>
 
-{% block header %}
-  <h1>{% block title %}Search Page{% endblock %}</h1>
-{% endblock %}
+    <script>
+        const searchForm = document.querySelector('form');
+        const inputFields = searchForm.querySelectorAll('input[type="text"]');
 
-{% block content %}
-  <h2>Welcome to Search page!</h2>
-  <p>Please search by course name or id, course category, or score</p>
+        searchForm.addEventListener('submit', function(event) {
+            let filledFields = 0;
 
-  <form method="post" action="{{ url_for('search') }}">
-    <label for="search_type">Search By What?</label>
-    <select name="search_type" id="search_type">
-      <option value="course_name">Course Name</option>
-      <option value="course_id">Course ID</option>
-    </select>
+            inputFields.forEach(function(field) {
+                if (field.value.trim() !== '') {
+                    filledFields++;
+                }
+            });
 
-    <label for="search_info">Search Information (required)</label>
-    <input type="text" name="search_info" id="search_info" required>
-
-    <input type="submit" value="Search Now">
-  </form>
-{% endblock %}
+            if (filledFields > 1) {
+                event.preventDefault();
+                alert("只能同时填写一个搜索框！");
+            }
+        });
+    </script>
+</body>
+</html>

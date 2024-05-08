@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>搜索结果</title></head>
+<body><h1>搜索结果</h1>
+<table>
+    <tr>
+        <th>Qid</th>
+        <th>Qtext</th>
+        <th>操作</th>
+    </tr>
+    {% for assign_q in assign_qs %}
+    <tr>
+        <td>{{ assign_q.qid }}</td>
+        <td>{{ assign_q.qtext }}</td>
+        <td><a href="/question_details/{{ assign_q.qid }}">详情</a></td>
+    </tr>
+    {% endfor %}
+        <form method="GET" action="/searchcourse">
+        <button type="submit">返回搜索页面</button>
+    </form>
+</table>
+</body>
+</html>
