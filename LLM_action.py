@@ -12,11 +12,12 @@ def submit_llm():
         answerimage = request.form.get('answerimage')
         llmscore = request.form.get('llmscore')
         comments = request.form.get('comments')
+        cL = request.form.get('cL')
 
         try:
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
             llm_id = create_llm(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage,
-                                llmscore=llmscore, comments=comments, session=db.session)
+                                llmscore=llmscore, comments=comments, CNumber=cL,session=db.session)
             flash('LLM record created successfully!', 'success')
             return redirect(url_for('submit_llm'))
         except ValueError:

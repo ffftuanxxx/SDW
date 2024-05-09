@@ -6,6 +6,7 @@ import addcourse_action
 import request_action
 import search_course
 import add_assignment_action
+import LLM_action
 
 
 class User(db.Model):
