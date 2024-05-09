@@ -36,7 +36,6 @@ def view_llm(llm_id):
     return render_template('llm_view.html', llm=llm)
 
 
-
 @app.route('/update_llm/<int:llm_id>', methods=['GET', 'POST'])
 def update_llm_view(llm_id):
     llm = get_llm(llm_id=llm_id, session=db.session)
@@ -46,6 +45,10 @@ def update_llm_view(llm_id):
 
         try:
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
+            if llmscore < 0 or llmscore > 54:
+                flash('LLM score must be between 0 and 54.', 'error')
+                return render_template('update_llm.html', llm=llm)
+
             update_llm(llm_id=llm_id, llmscore=llmscore, comments=comments, session=db.session)
             flash('LLM record updated successfully!', 'success')
             return redirect(url_for('update_llm_view', llm_id=llm_id))
