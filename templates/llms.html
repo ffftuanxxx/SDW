@@ -4,7 +4,7 @@
 <h1>LLM Records</h1>
 
 <!-- 添加新记录的按钮 -->
-<a href="{{ url_for('submit_llm') }}"><button>Create New LLM</button></a>
+
 
 <table>
     <thead>
@@ -20,6 +20,7 @@
     </thead>
     <tbody>
         {% for llm in llms %}
+        <a href="{{ url_for('submit_llm',qid=llm.qid) }}"><button>Create New LLM</button></a>
         <tr>
             <td>{{ llm.llm_id }}</td>
             <td>{{ llm.homeproblem }}</td>

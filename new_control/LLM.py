@@ -1,9 +1,9 @@
 from co_ import LLM, session
-def create_llm(homeproblem, usedanswer, answerimage, llmscore, comments, cL, session):
+def create_llm(homeproblem, usedanswer, answerimage, llmscore, comments, CNumber, qid, session):
     """
     在LLM表中创建新记录
     """
-    new_llm = LLM(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage, llmscore=llmscore, comments=comments, CNumber=cL, session=session)
+    new_llm = LLM(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage, llmscore=llmscore, comments=comments, CNumber=CNumber, qid=qid)
     session.add(new_llm)
     session.commit()
     print(f"新LLM记录创建成功, llm_id: {new_llm.llm_id}")

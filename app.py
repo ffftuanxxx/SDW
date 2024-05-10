@@ -9,6 +9,7 @@ import add_assignment_action
 import LLM_action
 from flask import session
 import stu_tea_adm
+import teacher_lists
 
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
@@ -57,6 +58,17 @@ def login():
         else:
             flash('Invalid email or password', 'error')
     return render_template('index.html')
+@app.route('/back', methods=['GET', 'POST'])
+def back():
+
+    if is_student():
+        return redirect(url_for('student'))
+    elif is_teacher():
+        return redirect(url_for('teacher'))
+    elif is_adm():
+        return redirect(url_for('adm'))
+    # Add logic for logged-in user
+    return redirect(url_for('login'))
 
 
 @app.route('/delete', methods=['GET', 'POST'])

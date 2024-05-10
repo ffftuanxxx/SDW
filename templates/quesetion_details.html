@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Question detail of {{ details.qid }}{% endblock %}</h1>
-{% endblock %}
 
+<h1>{% block title %}问题详情 {{ details.qid }}{% endblock %}</h1> {% endblock %}
 {% block content %}
-  <h2>Question detail of {{ details.qtext }}</h2>
-  <table>
+
+<h2>问题详情 {{ details.qtext }}</h2>
+<table>
     <tr>
-      <th>Question ID</th>
-      <th>Question Text</th>
-      <th>Category</th>
-      <th>Picture Name</th>
+        <th>问题ID</th>
+        <th>问题内容</th>
+        <th>类别</th>
+        <th>图片名称</th>
     </tr>
     <tr>
-      <td>{{ details.qid }}</td>
-      <td>{{ details.qtext }}</td>
-      <td>{{ details.category }}</td>
-      <td>{{ details.picturename }}</td>
+        <td>{{ details.qid }}</td>
+        <td>{{ details.qtext }}</td>
+        <td>{{ details.category }}</td>
+        <td>{{ details.picturename }}</td>
     </tr>
-        <form method="GET" action="/searchcourse">
+    <form method="GET" action="/searchcourse">
         <button type="submit">返回搜索页面</button>
     </form>
-  </table>
-{% endblock %}
+    <form method="GET" action="/llms/{{ details.qid }}">
+        <button type="submit">实验列表</button>
+    </form>
+</table> {% endblock %}

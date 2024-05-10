@@ -1,32 +1,41 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.register import create_user
+from new_control.assign import get_assignq
 from app_pre import db,app
 from new_control.LLM import create_llm,delete_llm,update_llm,get_llm,get_all_llms
 
 
 @app.route('/submit_llm', methods=['GET', 'POST'])
 def submit_llm():
+    print(1)
     if request.method == 'POST':
         homeproblem = request.form.get('homeproblem')
         usedanswer = request.form.get('usedanswer')
         answerimage = request.form.get('answerimage')
         llmscore = request.form.get('llmscore')
         comments = request.form.get('comments')
-        cL = request.form.get('cL')
+        qid = request.args.get('qid')  # 获取qid参数
+        CNumber=get_assignq(qid, db.session)
+        try:
+            CNumber=CNumber.CNumber
+        except Exception as e:
+            CNumber=0
+        print(1)
 
         try:
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
             llm_id = create_llm(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage,
-                                llmscore=llmscore, comments=comments, CNumber=cL,session=db.session)
-            flash('LLM record created successfully!', 'success')
-            return redirect(url_for('submit_llm'))
+                                llmscore=llmscore, comments=comments, CNumber=CNumber, qid=qid, session=db.session)
+            flash('LLM记录创建成功！', 'success')
+            return redirect(url_for('llms', qid=qid))  # 重定向到/llms/qid页面
         except ValueError:
-            flash('Invalid input for LLM score. Please enter a valid number.', 'error')
+            flash('LLM分数输入无效，请输入一个有效的数字。', 'error')
+            print(e)
         except Exception as e:
             flash(str(e), 'error')
+            print(e)
 
-    return render_template('submit_llm.html')
-
+    qid = request.args.get('qid')  # 获取qid参数
+    return render_template('submit_llm.html', qid=qid)
 @app.route('/view_llm/<int:llm_id>')
 def view_llm(llm_id):
     llm = get_llm(llm_id=llm_id, session=db.session)
@@ -45,7 +54,7 @@ def update_llm_view(llm_id):
 
         try:
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
-            if llmscore < 0 or llmscore > 54:
+            if llmscore < 0 or llmscore > 5:
                 flash('LLM score must be between 0 and 54.', 'error')
                 return render_template('update_llm.html', llm=llm)
 
@@ -72,6 +81,11 @@ def delete_llm_view(llm_id):
     flash('LLM record deleted successfully!', 'success')
     return redirect(url_for('llms'))
 
+@app.route('/llms/<int:qid>')
+def llmsqid(qid):
+    all_llms = get_all_llms(db.session)  # 获取所有的llms记录
+    filtered_llms = [llm for llm in all_llms if llm.qid == qid]  # 筛选与qid相关的llms记录
+    return render_template('llms.html', llms=filtered_llms)
 
 
 

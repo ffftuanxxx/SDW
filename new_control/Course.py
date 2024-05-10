@@ -53,6 +53,14 @@ def get_course_num(cnumber, session):
 
     return course
 
+def get_all_courses(session):
+    """
+    查询Course表中的课程记录
+    """
+    course = session.query(Course).all()
+
+    return course
+
 def get_course_name(CName, session):
     """
     查询Course表中的课程记录

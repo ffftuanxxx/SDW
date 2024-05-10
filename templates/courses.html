@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Courses</h1>
-<a href="{{ url_for('create_course_view') }}"><button>Create New Course</button></a>
+<a href="{{ url_for('create_course_route') }}"><button>Create New Course</button></a>
 <table>
     <thead>
         <tr>
@@ -20,12 +20,7 @@
             <td>{{ course.Help_id }}</td>
             <td>{{ course.CName }}</td>
             <td>{{ course.qid }}</td>
-            <td>
-                <a href="{{ url_for('update_course_view', cnumber=course.CNumber) }}">Edit</a>
-                <form action="{{ url_for('delete_course_view', cnumber=course.CNumber) }}" method="post" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
+
         </tr>
         {% endfor %}
     </tbody>
