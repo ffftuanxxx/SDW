@@ -107,6 +107,23 @@ def get_user(uid, session):
         return None
 
     return user
+def is_password_correct(email, password, session):
+    """
+    检查用户密码是否正确
+    """
+    # 查找用户
+    user = session.query(User).filter_by(email=email).first()
+
+    # 如果用户不存在
+    if not user:
+        print(f"错误: 用户 {email} 不存在")
+        return False
+
+    # 检查密码是否匹配
+    if user.pd == password:
+        return True,user.uclass
+    else:
+        return False,-1
 if __name__ == "__main__":
     # 测试create_user函数
     new_uid = create_user(1, "test@example.com", "Abc123", session)

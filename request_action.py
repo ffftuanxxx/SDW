@@ -29,26 +29,49 @@ def submit_request():
 
     return render_template('request.html')
 
-@app.route('/approve_request', methods=['GET', 'POST'])
-def approve_request():
+@app.route('/approve_request0', methods=['GET', 'POST'])
+def approve_request0():
     requests = get_all_requests(db.session)
-    return render_template('approve_request.html', requests=requests)
+    filtered_requests = [request for request in requests if request.requesttype == 0]
+    return render_template('approve_request0.html', requests=filtered_requests)
+@app.route('/approve_request1', methods=['GET', 'POST'])
+def approve_request1():
+    requests = get_all_requests(db.session)
+    filtered_requests = [request for request in requests if request.requesttype == 1]
+    return render_template('approve_request1.html', requests=filtered_requests)
 
-@app.route('/approve_request_action/<int:request_id>', methods=['GET', 'POST'])
-def approve_request_action(request_id):
+@app.route('/approve_request_action0/<int:request_id>', methods=['GET', 'POST'])
+def approve_request_action0(request_id):
     request = approve_request_(request_id,1,db.session)
     if request:
         # 处理批准请求的逻辑
-        return redirect(url_for('approve_request'))
+        return redirect(url_for('approve_request0'))
+    else:
+        return 'Request not found'
+@app.route('/approve_request_action1/<int:request_id>', methods=['GET', 'POST'])
+def approve_request_action1(request_id):
+    request = approve_request_(request_id,1,db.session)
+    if request:
+        # 处理批准请求的逻辑
+        return redirect(url_for('approve_request1'))
     else:
         return 'Request not found'
 
-@app.route('/reject_request_action/<int:request_id>', methods=['GET', 'POST'])
-def reject_request_action(request_id):
+@app.route('/reject_request_action1/<int:request_id>', methods=['GET', 'POST'])
+def reject_request_action1(request_id):
     request = approve_request_(request_id,2,db.session)
     print(request)
     if request:
         # 处理拒绝请求的逻辑
-        return redirect(url_for('approve_request'))
+        return redirect(url_for('approve_request1'))
+    else:
+        return 'Request not found'
+@app.route('/reject_request_action0/<int:request_id>', methods=['GET', 'POST'])
+def reject_request_action0(request_id):
+    request = approve_request_(request_id,2,db.session)
+    print(request)
+    if request:
+        # 处理拒绝请求的逻辑
+        return redirect(url_for('approve_request0'))
     else:
         return 'Request not found'

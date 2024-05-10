@@ -9,12 +9,11 @@
     <p style="color: red;">{{ error_message }}</p>
   {% endif %}
   <form method="post" id="register-form">
-    <label for="uclass">User Type</label>
-    <input name="uclass" id="uclass" required>
     <label for="verification_code">Verification Code</label>
     <input name="verification_code" id="verification_code" required>
     <label for="password">Password</label>
     <input type="password" name="password" id="password" required>
     <input type="submit" value="Register">
   </form>
+<a href="/register"><button>返回</button></a>
 {% endblock %}

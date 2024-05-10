@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approve Requests (Change Score)</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Approve Requests (Change Score)</h1>
+    <button onclick="window.location.href='/adm'">Back</button>
+    <button onclick="window.location.href='/approve_request1'">Switch to Change Creation</button>
+    {% if requests %}
+        <table>
+            <tr>
+                <th>Request ID</th>
+                <th>Question ID</th>
+                <th>Course ID</th>
+                <th>Explanation</th>
+                <th>Score Update</th>
+                <th>Request Type</th>
+                <th>Approved</th>
+                <th>Actions</th>
+            </tr>
+            {% for request in requests %}
+                {% if request.requesttype == 0 %}
+                    <tr>
+                        <td>{{ request.requestid }}</td>
+                        <td>{{ request.qid }}</td>
+                        <td>{{ request.courseid }}</td>
+                        <td>{{ request.explanation }}</td>
+                        <td>{{ request.scoreupdate }}</td>
+                        <td>{{ request.requesttype }}</td>
+                        <td>{{ request.approved }}</td>
+                        <td>
+                            <a href="{{ url_for('approve_request_action0', request_id=request.requestid) }}">Approve</a>
+                            <a href="{{ url_for('reject_request_action0', request_id=request.requestid) }}">Reject</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No requests found.</p>
+    {% endif %}
+</body>
+</html>

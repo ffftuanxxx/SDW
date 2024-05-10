@@ -24,7 +24,7 @@ def register():
 @app.route('/verify_code', methods=['GET', 'POST'])
 def verify_code():
     if request.method == 'POST':
-        uclass = request.form.get('uclass')
+        email = session.get('email')
         password = request.form.get('password')
         verification_code = request.form.get('verification_code')
 
@@ -34,17 +34,22 @@ def verify_code():
         has_digit = any(char.isdigit() for char in password)
 
         if not (has_uppercase and has_lowercase and has_digit):
-            error_message = 'Password must contain at least one uppercase letter, one lowercase letter, and one number.'
+            error_message = '密码必须包含至少一个大写字母、一个小写字母和一个数字。'
             return render_template('verify_code.html', error_message=error_message)
 
         # 检查用户输入的验证码是否正确
         if str(verification_code) != str(session.get('verification_code')):
-            error_message = 'Invalid verification code'
+            error_message = '无效的验证码。'
             return render_template('verify_code.html', error_message=error_message)
 
+        # 根据邮箱后缀判断用户类别
+        email_suffix = email.split('@')[-1]
+        uclass = 0 if email_suffix == 'mail.uic.edu.cn' else 1
+
         try:
-            create_user(int(uclass), session.get('email'), password, db.session)
-            flash('Registration successful!', 'success')
+            create_user(uclass, email, password, db.session)
+            flash('注册成功！', 'success')
+
             return redirect(url_for('register'))
         except Exception as e:
             flash(str(e), 'error')
