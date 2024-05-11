@@ -99,4 +99,12 @@ def deleteacount():
     return render_template('delete.html')
 
 
+@app.route('/logout')
+def logout():
+    # 清除会话中的所有项目
+    session.clear()
+    # 重定向到登录页面
+    return redirect(url_for('login'))
+
+
 

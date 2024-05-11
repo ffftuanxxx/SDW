@@ -11,6 +11,7 @@ def create_course_route():
         try:
             cnumber = create_course(cname, c_descri,c_cate, db.session)
             flash(f'New course created with number: {cnumber}', 'success')
+            return redirect(url_for('courses'))
         except Exception as e:
             flash(str(e), 'error')
     return render_template('course.html')
