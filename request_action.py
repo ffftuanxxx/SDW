@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from new_control.register import create_user
 from app_pre import db,app
-from new_control.request import create_request,get_all_requests,approve_request_
+from new_control.request import create_request,get_all_requests,approve_request_,get_request
 
 @app.route('/submit_request', methods=['GET', 'POST'])
 def submit_request():
@@ -73,5 +73,20 @@ def reject_request_action0(request_id):
     if request:
         # 处理拒绝请求的逻辑
         return redirect(url_for('approve_request0'))
+    else:
+        return 'Request not found'
+@app.route('/request_detail0/<int:request_id>', methods=['GET'])
+def request_detail0(request_id):
+    request = get_request(request_id, db.session)
+    if request:
+        return render_template('request_detail0.html', request=request)
+    else:
+        return 'Request not found'
+
+@app.route('/request_detail1/<int:request_id>', methods=['GET'])
+def request_detail1(request_id):
+    request = get_request(request_id, db.session)
+    if request:
+        return render_template('request_detail1.html', request=request)
     else:
         return 'Request not found'

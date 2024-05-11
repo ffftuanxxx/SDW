@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Detail</title></head>
+<body><h1>Request Detail</h1>
+<p><strong>Request ID:</strong> {{ request.requestid }}</p>
+<p><strong>Question ID:</strong> {{ request.qid }}</p>
+<p><strong>Course ID:</strong> {{ request.courseid }}</p>
+<p><strong>Explanation:</strong> {{ request.explanation }}</p>
+<p><strong>Score Update:</strong> {{ request.scoreupdate }}</p>
+<p><strong>Request Type:</strong> {{ request.requesttype }}</p>
+<p><strong>Approved:</strong> {% if request.approved == 0 %} Pending {% elif request.approved == 1 %} Approved {% else
+    %} Rejected {% endif %} </p>
+
+
+<form action="{{ url_for('approve_request_action1', request_id=request.requestid) }}" method="POST">
+    <button type="submit">Approve</button>
+</form>
+<form action="{{ url_for('reject_request_action1', request_id=request.requestid) }}" method="POST">
+    <button type="submit">Reject</button>
+</form>
+
+
+<a href="{{ url_for('approve_request1') }}">Back</a>
+</body>
+</html>
