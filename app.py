@@ -10,7 +10,7 @@ import LLM_action
 from flask import session
 import stu_tea_adm
 import teacher_lists
-
+from co_ import User
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     uclass = db.Column(db.Integer, nullable=False)
@@ -23,25 +23,39 @@ import teacher_lists
 # with app.app_context():
 #     db.create_all()
 
+
 def get_user_class():
     return session.get('uclass')
+
+
 def set_user_class(user_class):
     session['uclass'] = user_class
+
 
 def is_student():
     return get_user_class() == 0
 
+
 def is_teacher():
     return get_user_class() == 1
+
 
 def is_adm():
     return get_user_class() == 2
 
+
+def user_exists(email):
+    user = db.session.query(User).filter_by(email=email).first()
+    if user:
+        return True
+    return False
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
+        if not user_exists(email):
+            return render_template('register.html', error_message='该用户不存在')
         user,uclass=is_password_correct(email,password,db.session)
         set_user_class(uclass)
         if user:
