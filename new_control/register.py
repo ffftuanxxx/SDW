@@ -124,6 +124,8 @@ def is_password_correct(email, password, session):
         return True,user.uclass
     else:
         return False,-1
+
+
 if __name__ == "__main__":
     # 测试create_user函数
     new_uid = create_user(1, "test@example.com", "Abc123", session)

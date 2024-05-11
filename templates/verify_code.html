@@ -8,12 +8,20 @@
   {% if error_message %}
     <p style="color: red;">{{ error_message }}</p>
   {% endif %}
-  <form method="post" id="register-form">
-    <label for="verification_code">Verification Code</label>
-    <input name="verification_code" id="verification_code" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Register">
-  </form>
+<form method="post" id="register-form">
+  <label for="verification_code">Verification Code</label>
+  <input name="verification_code" id="verification_code" required>
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" required>
+  <label for="confirm_password">Confirm Password</label>
+  <input type="password" name="confirm_password" id="confirm_password" required>
+  <input type="submit" value="Register">
+</form>
+
 <a href="/register"><button>返回</button></a>
+<script>
+  {% if error_message %}
+    alert("{{ error_message }}");
+  {% endif %}
+</script>
 {% endblock %}
