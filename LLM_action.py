@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.assign import get_assignq
+from new_control.assign import get_assignq,update_assignq
 from app_pre import db,app
 from new_control.LLM import create_llm,delete_llm,update_llm,get_llm,get_all_llms
+
 
 
 @app.route('/submit_llm', methods=['GET', 'POST'])
@@ -88,4 +89,10 @@ def llmsqid(qid):
     return render_template('llms.html', llms=filtered_llms)
 
 
+@app.route('/submittoass/<int:llm_id>')
+def submittoass(llm_id):
+    llm=get_llm(llm_id,db.session)
+    ass=get_assignq(llm.qid, db.session)
+    update_assignq(llm.qid,ass.aid,ass.qtext,ass.category,llm.answerimage,llm.llmscore,db.session)#qid, aid, qtext, category, picturename, score, session
+    return render_template('llm_view.html', llm=llm)
 

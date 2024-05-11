@@ -23,7 +23,7 @@ def create_assignq(CNumber, qtext, category, picturename,aid,session):
 
     return new_question.qid
 
-def update_assignq(qid, aid, qtext, category, picturename, session):
+def update_assignq(qid, aid, qtext, category, picturename, score, session):
     """
     修改AssignQ表中的问题
     """
@@ -40,6 +40,7 @@ def update_assignq(qid, aid, qtext, category, picturename, session):
     question.qtext = qtext
     question.category = category
     question.picturename = picturename
+    question.score=score
 
     session.commit()
     print(f"问题ID {qid} 修改成功!")

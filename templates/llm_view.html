@@ -6,10 +6,13 @@
     <p>homework problem: {{ llm.homeproblem }}</p>
     <p>Answer Image: {{ llm.answerimage }}</p>
     <p>LLM Score: {{ llm.llmscore }}</p>
+    <p>Qid: {{ llm.qid }}</p>
+    <p>comments: {{ llm.comments }}</p>
 {% else %}
     <p>No details available for this LLM record.</p>
 {% endif %}
-<button onclick="window.history.back();">Back</button>
+<a href="/llms/{{llm.qid}}"><button>back</button></a></p>
 <a href="{{ url_for('submit_llm') }}"><button>Create New LLM</button></a>
 <a href="{{ url_for('update_llm_view', llm_id=llm.llm_id) }}">Edit</a>
+<a href="{{ url_for('submittoass', llm_id=llm.llm_id) }}">submit to Assign</a>
 {% endblock %}
