@@ -13,6 +13,9 @@
         <td>{{ assign_q.qid }}</td>
         <td>{{ assign_q.qtext }}</td>
         <td><a href="/question_details/{{ assign_q.qid }}">详情</a></td>
+        {% if session['uclass'] == 1 %}
+       <td> <a href="{{ url_for('submit_request', qid=assign_q.qid) }}">Submit Request</a></td>{% endif %}
+
     </tr>
     {% endfor %}
         <form method="GET" action="/searchcourse">

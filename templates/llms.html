@@ -2,10 +2,8 @@
 
 {% block content %}
 <h1>LLM Records</h1>
-
-<!-- 添加新记录的按钮 -->
-
-
+{% if session['uclass'] == 1 %}
+<a href="{{ url_for('submit_llm', qid=qid) }}"><button>创建 LLM</button></a>{% endif %}
 <table>
     <thead>
         <tr>
@@ -20,7 +18,6 @@
     </thead>
     <tbody>
         {% for llm in llms %}
-        <a href="{{ url_for('submit_llm',qid=llm.qid) }}"><button>Create New LLM</button></a>
         <tr>
             <td>{{ llm.llm_id }}</td>
             <td>{{ llm.homeproblem }}</td>
@@ -31,10 +28,14 @@
             <td>{{ llm.qid }}</td>
             <td>
                 <a href="{{ url_for('view_llm', llm_id=llm.llm_id) }}">View Details</a>
+                {% if session['uclass'] == 1 %}
                 <a href="{{ url_for('update_llm_view', llm_id=llm.llm_id) }}">Edit</a>
+                {% endif %}
+                {% if session['uclass'] == 1 %}
                 <form action="{{ url_for('delete_llm_view', llm_id=llm.llm_id) }}" method="post" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
+                {% endif %}
 
             </td>
         </tr>
@@ -42,7 +43,6 @@
     </tbody>
 </table>
 
-<!-- 添加返回上一页的按钮 -->
-<button onclick="window.history.back();">Back</button>
+<a href="{{ url_for('search') }}"><button>back</button></a>
 
 {% endblock %}

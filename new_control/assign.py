@@ -3,25 +3,21 @@
 """
 from co_ import AssignQ, session, Course
 
-def create_assignq(CNumber, qtext, category, picturename,aid,session):
+def create_assignq(CNumber, qtext, category, picturename, score, session):
     """
     在AssignQ表中为指定课程创建新问题
     """
-    # 获取指定课程
     course = session.query(Course).filter_by(CNumber=CNumber).first()
-
     if not course:
-        print(f"错误: 课程名称 '{course}' 不存在!")
+        print(f"错误: 课程编号 '{CNumber}' 不存在!")
         return None
 
-    # 创建新问题
-    new_question = AssignQ(CNumber=CNumber, qtext=qtext, category=category, picturename=picturename,aid=aid)
+    new_question = AssignQ(CNumber=CNumber, qtext=qtext, category=category, picturename=picturename, score=score)
     session.add(new_question)
     session.commit()
-
     print(f"新问题创建成功, qid: {new_question.qid}")
-
     return new_question.qid
+
 
 def update_assignq(qid, aid, qtext, category, picturename, score, session):
     """
@@ -40,7 +36,7 @@ def update_assignq(qid, aid, qtext, category, picturename, score, session):
     question.qtext = qtext
     question.category = category
     question.picturename = picturename
-    question.score=score
+    question.score = score
 
     session.commit()
     print(f"问题ID {qid} 修改成功!")

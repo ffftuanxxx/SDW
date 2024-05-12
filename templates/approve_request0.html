@@ -2,39 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Approve Requests (Change Score)</title>
-    <style> table { border-collapse: collapse; width: 100%; }
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-    </style>
+    <title>Approve Requests</title>
 </head>
-<body><h1>Approve Requests (Change Score)</h1>
-<button onclick="window.location.href='/adm'">Back</button>
-<button onclick="window.location.href='/approve_request1'">Switch to Change Creation</button>
-{% if requests %}
-<table>
-    <tr>
-        <th>Request ID</th>
-        <th>Approved</th>
-        <th>Actions</th>
-    </tr>
-    {% for request in requests %} {% if request.requesttype == 0 %}
-    <tr>
-        <td>{{ request.requestid }}</td>
-        <td> {% if request.approved == 0 %} Pending {% elif request.approved == 1 %} Approved {% else %} Rejected {%
-            endif %}
-        </td>
-        <td><a href="{{ url_for('request_detail0', request_id=request.requestid) }}">Detail</a></td>
-    </tr>
-    {% endif %} {% endfor %}
-</table>
-{% else %} <p>No requests found.</p> {% endif %}
+<body>
+    <h1>Approve Requests</h1>
+    <a href="/approve_request0"><button>Refresh Requests</button></a>
+    <ul>
+        {% for request in requests %}
+            {% if request.approved == 0 %}
+                <li>
+                    QID: {{ request.qid }}, Explanation: {{ request.explanation }},
+                    Score Update: {{ request.scoreupdate }}, Approved: {{ request.approved }}
+                    <!-- 添加表单提交按钮 -->
+                    <form action="/approve_request/{{ request.requestid }}" method="post">
+                        <button type="submit">Agree</button>
+                    </form>
+                </li>
+            {% endif %}
+        {% else %}
+            <li>No requests found.</li>
+        {% endfor %}
+    </ul>
 </body>
+<a href="{{ url_for('adm') }}"><button>back</button></a>
 </html>

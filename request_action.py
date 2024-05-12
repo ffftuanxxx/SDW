@@ -2,26 +2,23 @@ from flask import render_template, request, redirect, url_for, flash
 from new_control.register import create_user
 from app_pre import db,app
 from new_control.request import create_request,get_all_requests,approve_request_,get_request
-
+from co_ import Request, session
+from co_ import AssignQ, Variation, HelpTopic
 @app.route('/submit_request', methods=['GET', 'POST'])
 def submit_request():
+    qid = request.args.get('qid', default=None, type=int)
     if request.method == 'POST':
-        qid = request.form.get('qid')
-        courseid = request.form.get('courseid')
         explanation = request.form.get('explanation')
         scoreupdate = request.form.get('scoreupdate')
-        requesttype = request.form.get('requesttype')
-
         try:
             qid = int(qid)
-            courseid = int(courseid)
             scoreupdate = int(scoreupdate)
 
-            new_request = create_request(qid=qid, courseid=courseid, explanation=explanation,
-                                  scoreupdate=scoreupdate, requesttype=requesttype,session=db.session)
-            #print(1)
+            new_request = create_request(qid=qid, explanation=explanation,
+                                  scoreupdate=scoreupdate,session=db.session)
+            print(1)
             flash('Request submitted successfully!', 'success')
-            return redirect(url_for('submit_request'))
+            return redirect(url_for('teacher'))
         except ValueError:
             flash('Invalid input values. Please enter valid integers for qid, courseid, and scoreupdate.', 'error')
         except Exception as e:
@@ -29,64 +26,54 @@ def submit_request():
 
     return render_template('request.html')
 
-@app.route('/approve_request0', methods=['GET', 'POST'])
+
+@app.route('/approve_request0', methods=['GET'])
 def approve_request0():
     requests = get_all_requests(db.session)
-    filtered_requests = [request for request in requests if request.requesttype == 0]
-    return render_template('approve_request0.html', requests=filtered_requests)
-@app.route('/approve_request1', methods=['GET', 'POST'])
-def approve_request1():
-    requests = get_all_requests(db.session)
-    filtered_requests = [request for request in requests if request.requesttype == 1]
-    return render_template('approve_request1.html', requests=filtered_requests)
+    return render_template('approve_request0.html', requests=requests)
 
-@app.route('/approve_request_action0/<int:request_id>', methods=['GET', 'POST'])
-def approve_request_action0(request_id):
-    request = approve_request_(request_id,1,db.session)
-    if request:
-        # 处理批准请求的逻辑
-        return redirect(url_for('approve_request0'))
-    else:
-        return 'Request not found'
-@app.route('/approve_request_action1/<int:request_id>', methods=['GET', 'POST'])
-def approve_request_action1(request_id):
-    request = approve_request_(request_id,1,db.session)
-    if request:
-        # 处理批准请求的逻辑
-        return redirect(url_for('approve_request1'))
-    else:
-        return 'Request not found'
 
-@app.route('/reject_request_action1/<int:request_id>', methods=['GET', 'POST'])
-def reject_request_action1(request_id):
-    request = approve_request_(request_id,2,db.session)
-    print(request)
-    if request:
-        # 处理拒绝请求的逻辑
-        return redirect(url_for('approve_request1'))
-    else:
-        return 'Request not found'
-@app.route('/reject_request_action0/<int:request_id>', methods=['GET', 'POST'])
-def reject_request_action0(request_id):
-    request = approve_request_(request_id,2,db.session)
-    print(request)
-    if request:
-        # 处理拒绝请求的逻辑
-        return redirect(url_for('approve_request0'))
-    else:
-        return 'Request not found'
-@app.route('/request_detail0/<int:request_id>', methods=['GET'])
-def request_detail0(request_id):
-    request = get_request(request_id, db.session)
-    if request:
-        return render_template('request_detail0.html', request=request)
-    else:
-        return 'Request not found'
+@app.route('/approve_request/<int:request_id>', methods=['POST'])
+def approve_request(request_id):
+    # 查询请求
+    req = db.session.query(Request).filter_by(requestid=request_id).first()
+    if req:
+        req.approved = 1  # 标记请求为已批准
+        db.session.commit()
 
-@app.route('/request_detail1/<int:request_id>', methods=['GET'])
-def request_detail1(request_id):
-    request = get_request(request_id, db.session)
-    if request:
-        return render_template('request_detail1.html', request=request)
+        # 从AssignQ获取与Request相关的条目
+        assign_q = db.session.query(AssignQ).filter_by(qid=req.qid).first()
+        if assign_q:
+            # 更新AssignQ中的分数
+            z = assign_q.score
+            assign_q.score = req.scoreupdate  # 假设scoreupdate是要增加的分数
+            db.session.commit()
+
+            # 检查并更新或创建Variation记录
+            variation = db.session.query(Variation).filter_by(qid=req.qid).first()
+            if variation:
+                # 如果已存在记录，更新之
+                variation.vtext = assign_q.qtext  # 假设AssignQ有qtext字段
+                variation.vcode = z
+            else:
+                # 如果不存在，创建新记录
+                new_variation = Variation(
+                    vcode=z,  # 根据需要设置合适的vcode
+                    vtext=assign_q.qtext,  # 假设AssignQ有qtext字段
+                    qid=req.qid
+                )
+                db.session.add(new_variation)
+            db.session.commit()
+            flash('Request has been approved, score updated, and variation handled successfully!', 'success')
+        else:
+            flash('No related record found in AssignQ.', 'error')
     else:
-        return 'Request not found'
+        flash('Request not found.', 'error')
+
+    return redirect(url_for('approve_request0'))
+
+
+@app.route('/approve_request1')
+def helptopics_view():
+    helptopics = db.session.query(HelpTopic).all()  # 假设 HelpTopic 是你的模型名称
+    return render_template('approve_request1.html', helptopics=helptopics)

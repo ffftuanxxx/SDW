@@ -9,14 +9,18 @@ def helptopics():
 
 @app.route('/create_helptopic', methods=['GET', 'POST'])
 def create_helptopic_view():
+    cnumber = request.args.get('CNumber')  # 从 URL 参数获取 CNumber
     if request.method == 'POST':
         title = request.form.get('title')
         topicq = request.form.get('topicq')
         topica = request.form.get('topica')
-        create_helptopic(title=title, topicq=topicq, topica=topica, session=db.session)
+        # 将 CNumber 传递给创建函数
+        create_helptopic(title=title, topicq=topicq, topica=topica, cnumber=cnumber, session=db.session)
         flash('Help topic created successfully!', 'success')
-        return redirect(url_for('helptopics'))
-    return render_template('create_helptopic.html')
+        return redirect(url_for('courses'))
+    # 将 CNumber 传递到模板，以便在需要时使用
+    return render_template('create_helptopic.html', CNumber=cnumber)
+
 
 @app.route('/update_helptopic/<int:topic_id>', methods=['GET', 'POST'])
 def update_helptopic_view(topic_id):

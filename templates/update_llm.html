@@ -16,5 +16,10 @@
 {% else %}
 <p>Requested LLM record not found.</p>
 {% endif %}
-<button onclick="window.history.back();">Back</button>
+<script>
+  {% if error_message %}
+    alert("{{ error_message }}");
+  {% endif %}
+</script>
+<button onclick="location.href='{{ url_for('llmsqid', qid=llm.qid) }}'">Back</button>
 {% endblock %}

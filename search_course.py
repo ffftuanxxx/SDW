@@ -59,8 +59,6 @@ def search():
                 flash('请输入一个有效的数字作为分数。', 'warning')
 
         return render_template('searchresult.html', assign_qs=assign_qs)
-
-        return render_template('searchresult.html', assign_qs=assign_qs)
     else:
         return render_template('searchcourse.html')
 
@@ -72,44 +70,6 @@ def courseresult():
     assign_qs = db.session.query(AssignQ).all()
 
     return render_template('searchresult.html', assign_qs=assign_qs)
-# @app.route('/searchcourse', methods=['GET', 'POST'])
-# def search():
-#     if request.method == 'POST':
-#         search_type = request.form.get('search_type')
-#         search_info = request.form.get('search_info')
-#
-#         if search_type == 'course_name':
-#             courses = get_course_name(search_info, db.session)
-#         else:
-#             course = get_course_num(search_info, db.session)
-#             courses = [course] if course else []
-#
-#         return render_template('courseresult.html', courses=courses)
-#     else:
-#         return render_template('searchcourse.html')
-
-# @app.route('/courseresult', methods=['POST'])
-# def search_results():
-#     search_type = request.form.get('search_type')
-#     search_info = request.form.get('search_info')
-#
-#     if search_type == 'course_name':
-#         course = get_course_name(search_info, db.session)
-#         courses = [course] if course else []
-#     else:
-#         course = get_course_num(search_info, db.session)
-#         courses = [course] if course else []
-#
-#     return render_template('courseresult.html', courses=courses)
-
-
-
-
-# @app.route('/course/<course_number>/assignments')
-# def course_assignments(course_number):
-#     course = db.session.query(Course).filter_by(CNumber=course_number).first_or_404()
-#     assignments = db.session.query(AssignQ).filter_by(CNumber=course.CNumber).all()
-#     return render_template('course_assignments.html', course=course, assignments=assignments)
 
 @app.route('/question_details/<qid>')
 def qDetail(qid):

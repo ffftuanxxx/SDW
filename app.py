@@ -7,6 +7,7 @@ import request_action
 import search_course
 import add_assignment_action
 import LLM_action
+import helpT_action
 from flask import session
 import stu_tea_adm
 import teacher_lists

@@ -11,5 +11,5 @@
     <input type="text" name="topica" id="topica" required>
     <input type="submit" value="Create Help Topic">
 </form>
-<button onclick="window.history.back();">Back</button>
+<a href="{{ url_for('courses') }}" class="btn btn-danger">back</a>
 {% endblock %}

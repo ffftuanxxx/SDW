@@ -41,7 +41,6 @@
     </tbody>
 </table>
 
-<!-- 添加返回上一页的按钮 -->
-<button onclick="window.history.back();">Back</button>
+<button onclick="location.href='{{ url_for('question_details') }}'">Back</button>
 
 {% endblock %}

@@ -1,29 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script>
+window.onload = function() {
+    {% if success %}
+        alert('新问题创建成功');
+        window.location.href = "{{ url_for('courses') }}"; // 成功后重定向到课程页面
+    {% endif %}
+}
+</script>
 <h1>Courses</h1>
 <a href="{{ url_for('create_course_route') }}"><button>Create New Course</button></a>
 <table>
     <thead>
         <tr>
             <th>Course Number</th>
-            <th>Help ID</th>
             <th>Course Name</th>
-            <th>Question ID</th>
-            <th>Actions</th>
+            <th>Course Des</th>
+            <th>Course Category</th>
+           {% if session['uclass'] == 1 %} <th>Actions create</th>{% endif %}
+            {% if session['uclass'] == 1 %} <th>Actions request</th>{% endif %}
         </tr>
     </thead>
     <tbody>
         {% for course in courses %}
         <tr>
             <td>{{ course.CNumber }}</td>
-            <td>{{ course.Help_id }}</td>
             <td>{{ course.CName }}</td>
-            <td>{{ course.qid }}</td>
+            <td>{{ course.CDes }}</td>
+            <td>{{ course.Ccategory }}</td>
+            <td>
+                {% if session['uclass'] == 1 %}
+                    <a href="{{ url_for('create_assignq_route', cnumber=course.CNumber) }}">Create Assignment</a>
+                {% endif %}
+            </td>
+            <td>
+                {% if session['uclass'] == 1 %}
+                    <!-- 传递课程编号 (CNumber) -->
+                    <a href="{{ url_for('create_helptopic_view', CNumber=course.CNumber) }}">help</a>
+                {% endif %}
+            </td>
 
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a href="{{ url_for('teacher') }}" class="btn btn-danger">back</a>
+<a href="{{ url_for('teacher') }}" class="btn btn-danger">Back</a>
 {% endblock %}

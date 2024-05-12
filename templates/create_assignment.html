@@ -6,12 +6,6 @@
 
 {% block content %}
   <form method="post">
-    <label for="cname">Course Name:</label>
-    <input type="text" name="cname" id="cname" required>
-    <br>
-    <label for="aid">AID</label>
-    <input type="text" name="aid" id="aid" required>
-    <br>
     <label for="qtext">Question Text:</label>
     <textarea name="qtext" id="qtext" required></textarea>
     <br>
@@ -21,6 +15,16 @@
     <label for="picturename">Picture Name (if any):</label>
     <input type="text" name="picturename" id="picturename">
     <br>
+    <label for="score">Score:</label>
+    <input type="number" name="score" id="score" step="0.1" required>
+    <br>
+    <br>
     <input type="submit" value="Create Question">
   </form>
+<a href="/courses"><button>back</button></a>
+<script>
+  {% if error_message %}
+    alert("{{ error_message }}");
+  {% endif %}
+</script>
 {% endblock %}

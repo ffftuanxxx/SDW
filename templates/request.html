@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
 
 {% block header %}
-
 <h1>{% block title %}Request Form{% endblock %}</h1> {% endblock %}
 {% block content %}
 <a href="/back"><button>back</button></a>
 <form method="post">
-    <label for="qid">Question ID</label>
-    <input name="qid" id="qid" required>
-    <label for="courseid">Course ID</label>
-    <input name="courseid" id="courseid" required>
+    <input type="hidden" name="qid" value="{{ qid }}">
     <label for="explanation">Explanation</label>
     <input name="explanation" id="explanation" maxlength="255" required>
     <label for="scoreupdate">Score Update</label>
     <input name="scoreupdate" id="scoreupdate" type="number" required>
-    <label for="requesttype">Request Type</label>
-    <input name="requesttype" id="requesttype" maxlength="255" required>
     <input type="submit" value="Submit Request">
-</form> {% endblock %}
+</form>
+{% for message in get_flashed_messages() %}
+    <script>alert("{{ message }}");</script>
+{% endfor %}
+{% endblock %}
