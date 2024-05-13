@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from new_control.register import create_user,delete_user, session
+from new_control.register import Register123, session
 
 
 app = Flask(__name__)

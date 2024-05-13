@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.register import delete_user,is_password_correct
+from new_control.register import Register123
 from app_pre import db,app
 import register_action
 import addcourse_action
@@ -57,7 +57,7 @@ def login():
         password = request.form.get('password')
         if not user_exists(email):
             return render_template('register.html', error_message='该用户不存在')
-        user,uclass=is_password_correct(email,password,db.session)
+        user,uclass=Register123.is_password_correct(email,password,db.session)
         set_user_class(uclass)
         if user:
             flash('Login successful!', 'success')

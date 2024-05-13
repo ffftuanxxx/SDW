@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.register import create_user
+from new_control.register import Register123
 from app_pre import db,app
-from new_control.request import create_request,get_all_requests,approve_request_,get_request
+from new_control.request import Requestment123
 from co_ import Request, session
 from co_ import AssignQ, Variation, HelpTopic
 @app.route('/submit_request', methods=['GET', 'POST'])
@@ -14,7 +14,7 @@ def submit_request():
             qid = int(qid)
             scoreupdate = int(scoreupdate)
 
-            new_request = create_request(qid=qid, explanation=explanation,
+            Requestment123.create_request(qid=qid, explanation=explanation,
                                   scoreupdate=scoreupdate,session=db.session)
             print(1)
             flash('Request submitted successfully!', 'success')

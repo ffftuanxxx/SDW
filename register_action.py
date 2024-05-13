@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash, session
-from new_control.register import create_user
+from new_control.register import Register123
 from app_pre import db, app
 import random
 from s import sendemail
@@ -69,7 +69,7 @@ def verify_code():
         uclass = 0 if email_suffix == 'mail.uic.edu.cn' else 1
 
         try:
-            create_user(uclass, email, password, db.session)
+            Register123.create_user(uclass, email, password, db.session)
             flash('注册成功！', 'success')
 
             return redirect(url_for('register'))

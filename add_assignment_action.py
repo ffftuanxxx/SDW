@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.assign import create_assignq,session
+from new_control.assign import assignq
 from app_pre import db,app
 from co_ import AssignQ, session, Course
 
@@ -16,7 +16,7 @@ def create_assignq_route(cnumber):
             if score < 5:
                 error_message = '分数最低为5。'  # 设置错误消息
                 return render_template('create_assignment.html', error_message=error_message)
-            new_question = create_assignq(cnumber, qtext, category, picturename, score, db.session)
+            new_question = assignq.create(cnumber, qtext, category, picturename, score)
             flash('新问题创建成功', 'success')
             return redirect(url_for('courses'))  # 假设 courses_list 是课程列表的路由
         except ValueError:

@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.Course import create_course
+from new_control.Course import Course1
 from app_pre import db,app
 
 @app.route('/course', methods=['GET', 'POST'])
@@ -9,7 +9,7 @@ def create_course_route():
         c_descri = request.form.get('c_descri')
         c_cate = request.form.get('c_cate')
         try:
-            cnumber = create_course(cname, c_descri,c_cate, db.session)
+            cnumber = Course1.create_course(cname, c_descri,c_cate, db.session)
             flash(f'New course created with number: {cnumber}', 'success')
             return redirect(url_for('courses'))
         except Exception as e:

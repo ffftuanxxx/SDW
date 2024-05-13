@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash, session
-from new_control.Course import get_course_name,get_course_num
+from new_control.Course import Course1
 from app_pre import db,app
 from co_ import Course, AssignQ
 # 其他代码...

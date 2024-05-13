@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from new_control.assign import get_assignq,update_assignq
+from new_control.assign import assignq as A
 from app_pre import db,app
 from new_control.LLM import create_llm,delete_llm,update_llm,get_llm,get_all_llms
 
@@ -15,7 +15,7 @@ def submit_llm():
         answerimage = request.form.get('answerimage')
         llmscore = request.form.get('llmscore')
         comments = request.form.get('comments')
-        assignq = get_assignq(qid, db.session)
+        assignq = A.get(qid)
 
         try:
             max_score = assignq.score if assignq else 5  # 默认最大分数为5，如果找不到assignq记录
@@ -37,8 +37,6 @@ def submit_llm():
     return render_template('submit_llm.html', qid=qid, error_message=error_message)
 
 
-
-
 @app.route('/view_llm/<int:llm_id>')
 def view_llm(llm_id):
     llm = get_llm(llm_id=llm_id, session=db.session)
@@ -55,7 +53,7 @@ def update_llm_view(llm_id):
         flash('LLM record not found.', 'error')
         return redirect(url_for('some_error_page'))  # 如果LLM记录不存在，重定向到错误页面
 
-    assignq = get_assignq(llm.qid, db.session)  # 使用LLM的qid来获取AssignQ记录
+    assignq = A.get(llm.qid)  # 使用LLM的qid来获取AssignQ记录
     max_score = assignq.score if assignq else 5  # 默认最大分数为5，如果找不到AssignQ记录
     error_message = None
 

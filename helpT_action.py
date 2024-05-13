@@ -1,10 +1,10 @@
 from flask import render_template, request, redirect, url_for, flash
 from app_pre import db, app
-from new_control.HelpTopic import create_helptopic, get_helptopic, update_helptopic, delete_helptopic, get_all_helptopics
+from new_control.HelpTopic import helpTopic2
 
 @app.route('/helptopics')
 def helptopics():
-    all_topics = get_all_helptopics(session=db.session)
+    all_topics = helpTopic2.get_all_helptopics(session=db.session)
     return render_template('helptopics.html', topics=all_topics)
 
 @app.route('/create_helptopic', methods=['GET', 'POST'])
@@ -15,7 +15,7 @@ def create_helptopic_view():
         topicq = request.form.get('topicq')
         topica = request.form.get('topica')
         # 将 CNumber 传递给创建函数
-        create_helptopic(title=title, topicq=topicq, topica=topica, cnumber=cnumber, session=db.session)
+        helpTopic2.create_helptopic(title=title, topicq=topicq, topica=topica, cnumber=cnumber, session=db.session)
         flash('Help topic created successfully!', 'success')
         return redirect(url_for('courses'))
     # 将 CNumber 传递到模板，以便在需要时使用
