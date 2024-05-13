@@ -1,30 +1,60 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Create New Assignment Question{% endblock %}</h1>
-{% endblock %}
 
-{% block content %}
-  <form method="post">
-    <label for="qtext">Question Text:</label>
-    <textarea name="qtext" id="qtext" required></textarea>
-    <br>
-    <label for="category">Category:</label>
-    <input type="text" name="category" id="category" required>
-    <br>
-    <label for="picturename">Picture Name (if any):</label>
-    <input type="text" name="picturename" id="picturename">
-    <br>
-    <label for="score">Score:</label>
-    <input type="number" name="score" id="score" step="0.1" required>
-    <br>
-    <br>
-    <input type="submit" value="Create Question">
-  </form>
-<a href="/courses"><button>back</button></a>
-<script>
-  {% if error_message %}
-    alert("{{ error_message }}");
-  {% endif %}
+<h1>{% block title %}创建新作业题{% endblock %}</h1> {% endblock %} {% block content %}
+<form method="post" enctype="multipart/form-data"><label for="qtext">题干:</label> <textarea name="qtext" id="qtext"
+                                                                                             required></textarea> <br>
+    <label for="category">类别:</label> <input type="text" name="category" id="category" required> <br> <label
+            for="picture">图片 (如有):</label> <input type="file" name="picture" id="picture" accept="image/*"> <input
+            type="hidden" name="picturename" id="picturename"> <br> <label for="qimg">题目图片 (如有):</label> <input
+            type="file" name="qimg" id="qimg" accept="image/*"> <input type="hidden" name="qimgname" id="qimgname"> <br>
+    <label for="score">分值:</label> <input type="number" name="score" id="score" step="0.1" required> <br> <br> <input
+            type="submit" value="创建题目"></form>
+<button>返回</button>
+<script> {% if error_message %}
+alert("{{ error_message }}");
+{% endif %}
+document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    var pictureFile = document.getElementById('picture').files[0];
+    var qimgFile = document.getElementById('qimg').files[0];
+
+    var promises = [];
+
+    if (pictureFile) {
+        promises.push(convertToBase64(pictureFile, 'picturename'));
+    }
+
+    if (qimgFile) {
+        promises.push(convertToBase64(qimgFile, 'qimgname'));
+    }
+
+    Promise.all(promises).then(function () {
+        document.querySelector('form').submit();
+    });
+});
+
+function convertToBase64(file, inputId) {
+    return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var img = new Image();
+            img.onload = function () {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+                var dataURL = canvas.toDataURL('image/jpeg', 0.8);
+                document.getElementById(inputId).value = dataURL.split(',')[1];
+                resolve();
+            }
+            img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+    });
+}
 </script>
+<a href="{{ url_for('courses') }}" class="btn btn-danger">back</a>
 {% endblock %}

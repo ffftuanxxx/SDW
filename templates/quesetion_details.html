@@ -10,19 +10,25 @@
     <tr>
         <th>问题ID</th>
         <th>问题内容</th>
+        <th>问题图片</th>
         <th>类别</th>
-        <th>图片</th>
+        <th>答案图片</th>
     </tr>
     <tr>
         <td>{{ details.qid }}</td>
         <td>{{ details.qtext }}</td>
+        <td> {% if details.qimg %} <img src="data:image/jpeg;base64,{{ details.qimg }}"
+                                               alt="Answer Image"> {% else %} 无图片 {% endif %}
+        </td>
         <td>{{ details.category }}</td>
-        <td>{{ details.picturename }}</td>
+        <td> {% if details.picturename %} <img src="data:image/jpeg;base64,{{ details.picturename }}"
+                                               alt="Answer Image"> {% else %} 无图片 {% endif %}
+        </td>
     </tr>
-    <form method="GET" action="/searchcourse">
-        <button type="submit">返回搜索页面</button>
-    </form>
-    <form method="GET" action="/llms/{{ details.qid }}">
-        <button type="submit">实验列表</button>
-    </form>
-</table> {% endblock %}
+</table>
+<form method="GET" action="/searchcourse">
+    <button type="submit">返回搜索页面</button>
+</form>
+<form method="GET" action="/llms/{{ details.qid }}">
+    <button type="submit">实验列表</button>
+</form> {% endblock %}

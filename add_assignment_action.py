@@ -11,12 +11,13 @@ def create_assignq_route(cnumber):
         category = request.form.get('category')
         picturename = request.form.get('picturename')
         score = request.form.get('score')  # 从表单获取分数
+        qimg = request.form.get('qimgname')
         try:
             score = float(score)  # 确保分数是浮点数
             if score < 5:
                 error_message = '分数最低为5。'  # 设置错误消息
                 return render_template('create_assignment.html', error_message=error_message)
-            new_question = assignq.create(cnumber, qtext, category, picturename, score)
+            new_question = assignq.create(cnumber, qtext, category, picturename, score,qimg)
             flash('新问题创建成功', 'success')
             return redirect(url_for('courses'))  # 假设 courses_list 是课程列表的路由
         except ValueError:

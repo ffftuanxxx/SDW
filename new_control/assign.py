@@ -8,7 +8,7 @@ class assignq():
         self.session = session
 
 
-    def create(CNumber, qtext, category, picturename, score):
+    def create(CNumber, qtext, category, picturename, score, qimg):
         """
         在AssignQ表中为指定课程创建新问题
         """
@@ -17,7 +17,7 @@ class assignq():
             print(f"错误: 课程编号 '{CNumber}' 不存在!")
             return None
 
-        new_question = AssignQ(CNumber=CNumber, qtext=qtext, category=category, picturename=picturename, score=score)
+        new_question = AssignQ(CNumber=CNumber, qtext=qtext, category=category, picturename=picturename, score=score,qimg=qimg)
         session.add(new_question)
         session.commit()
         print(f"新问题创建成功, qid: {new_question.qid}")
