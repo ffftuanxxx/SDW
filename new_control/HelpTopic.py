@@ -54,17 +54,3 @@ def get_all_helptopics(session):
     return session.query(HelpTopic).all()
 
 
-if __name__ == "__main__":
-    # 创建新主题
-    new_id = create_helptopic("Python基础", "什么是变量?", "变量用于存储值...", session)
-    print(f"新主题ID: {new_id}")
-
-    # 获取主题信息
-    topic = get_helptopic(new_id, session)
-    print(f"主题: {topic.title}, {topic.topicq}, {topic.topica}")
-
-    # 更新主题
-    update_helptopic(new_id, "Python高级", "什么是装饰器?", "装饰器用于修改函数...", session)
-
-    # 删除主题
-    delete_helptopic(new_id, session)

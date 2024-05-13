@@ -27,19 +27,6 @@ def update_course(cnumber, help_id, cname, qid, session):
     session.commit()
     print(f"课程记录ID {cnumber} 修改成功!")
 
-def delete_course(cnumber, session):
-    """
-    删除Course表中的课程记录
-    """
-    course = session.query(Course).filter_by(CNumber=cnumber).first()
-
-    if not course:
-        print(f"错误: 课程记录ID {cnumber} 不存在!")
-        return
-
-    session.delete(course)
-    session.commit()
-    print(f"课程记录ID {cnumber} 删除成功!")
 
 def get_course_num(cnumber, session):
     """

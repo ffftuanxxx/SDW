@@ -53,7 +53,3 @@ def get_all_llms(session):
     """
     return session.query(LLM).all()
 
-if __name__ == "__main__":
-    # 创建新记录
-    new_id = create_llm("156", "answer.jpg", "2626",6,"sss", session)
-    print(f"新记录ID: {new_id}")

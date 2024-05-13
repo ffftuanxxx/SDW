@@ -75,18 +75,3 @@ def get_assignq(qid, session):
 
 def get_all_assignqs(session):
     return session.query(AssignQ).all()
-
-if __name__ == "__main__":
-    # 创建新问题
-    new_qid = create_assignq(100, "这是一个测试问题?", "计算机科学", "test.jpg", session)
-    print(f"新问题qid: {new_qid}")
-
-    # 修改问题
-    update_assignq(new_qid, 101, "修改后的问题内容", "数学", "new.png", session)
-
-    # 查询问题
-    question = get_assignq(new_qid, session)
-    print(f"问题信息: {question.aid}, {question.qtext}, {question.category}, {question.picturename}")
-
-    # 删除问题
-    delete_assignq(new_qid, session)

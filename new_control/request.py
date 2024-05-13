@@ -77,17 +77,3 @@ def delete_request(requestid, session):
     session.commit()
     print(f"请求ID {requestid} 删除成功!")
 
-if __name__ == "__main__":
-    # 创建新请求
-    new_id = create_request(1, 101, 6, session)
-    print(f"新请求ID: {new_id}")
-
-    # 获取请求信息
-    request = get_request(new_id, session)
-    print(f"请求: {request.qid}, {request.courseid}, {request.explanation}, {request.scoreupdate}, {request.requesttype}")
-
-    # 更新请求
-    update_request(new_id, 2, 102, "修改后的说明", 1, "考试申请", session)
-
-    # 删除请求
-    delete_request(new_id, session)

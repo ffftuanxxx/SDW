@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from app_pre import db, app
-from new_control.Course import create_course, get_all_courses, update_course, delete_course
+from new_control.Course import create_course, get_all_courses
 
 @app.route('/courses')
 def courses():

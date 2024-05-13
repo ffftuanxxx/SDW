@@ -125,18 +125,3 @@ def is_password_correct(email, password, session):
     else:
         return False,-1
 
-
-if __name__ == "__main__":
-    # 测试create_user函数
-    new_uid = create_user(1, "test@example.com", "Abc123", session)
-    print(f"新用户uid: {new_uid}")
-
-    # 修改用户信息
-    update_user(new_uid, 2, "new@example.com", "Def456", session)
-
-    # 查询用户信息
-    user = get_user(new_uid, session)
-    print(f"用户信息: {user.uclass}, {user.email}, {user.pd}")
-
-    # 删除用户
-    delete_user(new_uid, session)
