@@ -49,10 +49,10 @@ def send_email_with_image(receivers, subject, content, image_path):
         return False
 
 if __name__ == '__main__':
-    receivers = ['r130026083@mail.uic.edu.cn']
+    receivers = ['r130026041@mail.uic.edu.cn']
     subject = '色色'
     content = '请看'
-    image_path = 'C:\\Users\\1\\Pictures\\Saved Pictures\\8.png'  # 图片文件路径
+    image_path = 'C:\\Users\\1\\Pictures\\Camera Roll\\7.png'  # 图片文件路径
 
     if send_email_with_image(receivers, subject, content, image_path):
         print('邮件发送成功')
