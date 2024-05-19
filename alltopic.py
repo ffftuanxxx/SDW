@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from app_pre import db, app
 from new_control.topic import TopicManager
+from sqlalchemy.exc import PendingRollbackError
 
 @app.route('/topics/<string:CNumber>', methods=['GET', 'POST'])
 def topic_list(CNumber):
@@ -20,8 +21,19 @@ def subtopic_list(topicid):
         subtopic_id = TopicManager().create_subtopic(topicid, subtxt)
         return redirect(url_for('subtopic_list', topicid=topicid))
 
-    subtopics = TopicManager().get_subtopics_by_topic(topicid)
-    CNumber = TopicManager().get_cnumber_by_topicid(topicid)  # 获取课程编号
+    session = None  # 确保 session 变量被定义
+    try:
+        session = db.session
+        session.autocommit = True
+        subtopics = TopicManager().get_subtopics_by_topic(topicid)
+    except PendingRollbackError:
+        session.rollback()
+        subtopics = TopicManager().get_subtopics_by_topic(topicid)
+    finally:
+        if session is not None:  # 检查 session 是否为 None
+            session.close()
+
+    CNumber = TopicManager().get_cnumber_by_topicid(topicid)
     return render_template('subtopic_list.html', subtopics=subtopics, topicid=topicid, CNumber=CNumber)
 
 

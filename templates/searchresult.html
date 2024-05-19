@@ -1,7 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head><title>搜索结果</title></head>
-<body><h1>搜索结果</h1>
+<!DOCTYPE html> <html> <head><title>搜索结果</title></head> <body> <h1>搜索结果</h1>
+
+{% if topics %}
+<h2>相关主题</h2>
+<table>
+    <thead>
+        <tr>
+            <th>主题ID</th>
+            <th>主题文本</th>
+            <th>子主题列表</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for topic in topics %}
+        <tr>
+            <td>{{ topic.topicid }}</td>
+            <td>{{ topic.topictxt }}</td>
+            <td>
+                <!-- 传递主题ID (topicid) 到子主题列表页面 -->
+                <a href="{{ url_for('subtopic_list', topicid=topic.topicid) }}">查看子主题</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<h2>问题列表</h2>
 <table>
     <tr>
         <th>Qid</th>
@@ -14,13 +38,13 @@
         <td>{{ assign_q.qtext }}</td>
         <td><a href="/question_details/{{ assign_q.qid }}">详情</a></td>
         {% if session['uclass'] == 1 %}
-       <td> <a href="{{ url_for('submit_request', qid=assign_q.qid) }}">Submit Request</a></td>{% endif %}
-
+        <td><a href="{{ url_for('submit_request', qid=assign_q.qid) }}">提交请求</a></td>
+        {% endif %}
     </tr>
     {% endfor %}
-        <form method="GET" action="/searchcourse">
-        <button type="submit">返回搜索页面</button>
-    </form>
 </table>
-</body>
-</html>
+
+<form method="GET" action="/searchcourse">
+    <button type="submit">返回搜索页面</button>
+</form>
+</body> </html>
