@@ -10,6 +10,7 @@
 <p><strong>Explanation:</strong> {{ request.explanation }}</p>
 <p><strong>Score Update:</strong> {{ request.scoreupdate }}</p>
 <p><strong>Request Type:</strong> {{ request.requesttype }}</p>
+<p><strong>user:</strong> {{ request.email}}</p>
 <p><strong>Approved:</strong> {% if request.approved == 0 %} Pending {% elif request.approved == 1 %} Approved {% else
     %} Rejected {% endif %} </p>
 

@@ -2,8 +2,12 @@ from flask import render_template, request, redirect, url_for, flash, session
 from new_control.register import Register123
 from app_pre import db, app
 import random
+
 from s import sendemail
 from co_ import User
+def set_user_class(user_class,user_email):
+    session['uclass'] = user_class
+    session['emial'] = user_email
 def user_exists(email):
     # 这里的代码需要根据你的数据库访问方式来写
     # 假设使用 SQLAlchemy
@@ -71,8 +75,9 @@ def verify_code():
         try:
             Register123.create_user(uclass, email, password, db.session)
             flash('注册成功！', 'success')
-
-            return redirect(url_for('register'))
+            set_user_class(uclass,email)
+            #print(111)
+            return redirect(url_for('back'))
         except Exception as e:
             flash(str(e), 'error')
 

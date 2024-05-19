@@ -29,9 +29,9 @@ def get_user_class():
     return session.get('uclass')
 
 
-def set_user_class(user_class):
+def set_user_class(user_class,user_email):
     session['uclass'] = user_class
-
+    session['emial'] = user_email
 
 def is_student():
     return get_user_class() == 0
@@ -43,6 +43,9 @@ def is_teacher():
 
 def is_adm():
     return get_user_class() == 2
+
+def get_emial():
+    return session.get('email')
 
 
 def user_exists(email):
@@ -58,7 +61,7 @@ def login():
         if not user_exists(email):
             return render_template('register.html', error_message='该用户不存在')
         user,uclass=Register123.is_password_correct(email,password,db.session)
-        set_user_class(uclass)
+        set_user_class(uclass,email)
         if user:
             flash('Login successful!', 'success')
             print("login",uclass)

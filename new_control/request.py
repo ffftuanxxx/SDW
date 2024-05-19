@@ -2,9 +2,9 @@ from co_ import Request, session
 
 
 class Requestment123():
-    def create_request(qid, explanation, scoreupdate, session):
+    def create_request(qid, explanation, scoreupdate, email, session):
         new_request = Request(qid=qid, explanation=explanation,
-                              scoreupdate=scoreupdate, approved=0)
+                              scoreupdate=scoreupdate, approved=0,email=email)
         session.add(new_request)
         session.commit()
         print(f"新请求创建成功, requestid: {new_request.requestid}")

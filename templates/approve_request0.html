@@ -12,7 +12,7 @@
             {% if request.approved == 0 %}
                 <li>
                     QID: {{ request.qid }}, Explanation: {{ request.explanation }},
-                    Score Update: {{ request.scoreupdate }}, Approved: {{ request.approved }}
+                    Score Update: {{ request.scoreupdate }}, email: {{ request.email}},Approved: {{ request.approved }}
                     <!-- 添加表单提交按钮 -->
                     <form action="/approve_request/{{ request.requestid }}" method="post">
                         <button type="submit">Agree</button>

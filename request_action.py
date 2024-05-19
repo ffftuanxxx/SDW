@@ -1,8 +1,8 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash,session
 from new_control.register import Register123
 from app_pre import db,app
 from new_control.request import Requestment123
-from co_ import Request, session
+from co_ import Request
 from co_ import AssignQ, Variation, HelpTopic
 @app.route('/submit_request', methods=['GET', 'POST'])
 def submit_request():
@@ -15,7 +15,7 @@ def submit_request():
             scoreupdate = int(scoreupdate)
 
             Requestment123.create_request(qid=qid, explanation=explanation,
-                                  scoreupdate=scoreupdate,session=db.session)
+                                  scoreupdate=scoreupdate,email=session.get('email'),session=db.session)
             print(1)
             flash('Request submitted successfully!', 'success')
             return redirect(url_for('teacher'))
@@ -29,7 +29,7 @@ def submit_request():
 
 @app.route('/approve_request0', methods=['GET'])
 def approve_request0():
-    requests = get_all_requests(db.session)
+    requests = Requestment123.get_all_requests(db.session)
     return render_template('approve_request0.html', requests=requests)
 
 
