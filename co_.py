@@ -26,7 +26,10 @@ HelpTopic = Base.classes.HelpTopic
 LLM = Base.classes.LLM
 Request = Base.classes.Request
 Variation = Base.classes.Variation
-
+comment = Base.classes.comment
+Topic=Base.classes.topic
+Subtopic=Base.classes.subtopic
+SubtopicQ=Base.classes.subtopicQ
 # 创建session
 session = Session(engine)
 #

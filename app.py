@@ -12,6 +12,7 @@ from flask import session
 import stu_tea_adm
 import teacher_lists
 from co_ import User
+import alltopic
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     uclass = db.Column(db.Integer, nullable=False)
@@ -31,7 +32,7 @@ def get_user_class():
 
 def set_user_class(user_class,user_email):
     session['uclass'] = user_class
-    session['emial'] = user_email
+    session['email'] = user_email
 
 def is_student():
     return get_user_class() == 0

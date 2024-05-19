@@ -37,13 +37,18 @@ def submit_llm():
     return render_template('submit_llm.html', qid=qid, error_message=error_message)
 
 
-@app.route('/view_llm/<int:llm_id>')
+@app.route('/view_llm/<int:llm_id>', methods=['GET', 'POST'])
 def view_llm(llm_id):
     llm = LLM222.get_llm(llm_id=llm_id, session=db.session)
+    comment = LLM222.get_comment(llm_id=llm_id, session=db.session)
     if llm is None:
         flash(f"LLM ID {llm_id} 不存在!", 'error')
         return redirect(url_for('index'))  # 请根据需要修改跳转的默认页面
-    return render_template('llm_view.html', llm=llm)
+    if request.method == 'POST':
+        new_comment = request.form['comment']
+        LLM222.create_comment(llm_id=llm_id, com=new_comment, session=db.session)
+        return redirect(url_for('view_llm', llm_id=llm_id))
+    return render_template('llm_view.html', llm=llm, com=comment)
 
 
 @app.route('/update_llm/<int:llm_id>', methods=['GET', 'POST'])

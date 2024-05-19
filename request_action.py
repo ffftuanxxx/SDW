@@ -21,8 +21,10 @@ def submit_request():
             return redirect(url_for('teacher'))
         except ValueError:
             flash('Invalid input values. Please enter valid integers for qid, courseid, and scoreupdate.', 'error')
+            print(e)
         except Exception as e:
             flash(str(e), 'error')
+            print(e)
 
     return render_template('request.html')
 

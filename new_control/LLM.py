@@ -1,4 +1,4 @@
-from co_ import LLM, session
+from co_ import LLM, session,comment
 
 
 class LLM222:
@@ -12,7 +12,25 @@ class LLM222:
         session.commit()
         print(f"新LLM记录创建成功, llm_id: {new_llm.llm_id}")
         return new_llm.llm_id
+    def create_comment(llm_id, com, session):
+        """
+        在LLM表中创建新记录
+        """
+        new_c = comment(llm_id=llm_id,comments=com)
+        session.add(new_c)
+        session.commit()
+        print(f"新LLM记录创建成功, llm_id: {new_c.commentid}")
+        return new_c.commentid
 
+    def get_comment(llm_id, session):
+        """
+        查询com表中的记录
+        """
+        com = session.query(comment).filter_by(llm_id=llm_id).all()
+        if not com:
+            print(f"错误: LLM ID {llm_id} 不存在!")
+            return None
+        return com
     def get_llm(llm_id, session):
         """
         查询LLM表中的记录
