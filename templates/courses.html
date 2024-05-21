@@ -19,7 +19,7 @@ window.onload = function() {
             <th>课程描述</th>
             <th>课程类别</th>
            {% if session['uclass'] == 1 %} <th>创建作业</th>{% endif %}
-            {% if session['uclass'] == 1 %} <th>请求帮助</th>{% endif %}
+
             <th>主题列表</th> <!-- 添加新的列用于显示主题列表 -->
         </tr>
     </thead>
@@ -35,12 +35,7 @@ window.onload = function() {
                     <a href="{{ url_for('create_assignq_route', cnumber=course.CNumber) }}">创建作业</a>
                 {% endif %}
             </td>
-            <td>
-                {% if session['uclass'] == 1 %}
-                    <!-- 传递课程编号 (CNumber) -->
-                    <a href="{{ url_for('create_helptopic_view', CNumber=course.CNumber) }}">帮助</a>
-                {% endif %}
-            </td>
+
             <td>
                 <!-- 传递课程编号 (CNumber) 到主题列表页面 -->
                 <a href="{{ url_for('topic_list', CNumber=course.CNumber) }}">查看主题</a>

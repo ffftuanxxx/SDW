@@ -4,4 +4,9 @@
 *.pyc
 *.pyc
 *.idea
+<<<<<<< HEAD
 __pycache__/search_course.cpython-310.pyc
+=======
+*.pyc
+*.pyc
+>>>>>>> 14c972779871be46a211a93b85d1dc2b3b55c058
