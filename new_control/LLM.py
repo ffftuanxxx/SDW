@@ -6,6 +6,7 @@ class LLM222:
         """
         在LLM表中创建新记录
         """
+        print("new llm")
         new_llm = LLM(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage, llmscore=llmscore,
                       comments=comments, CNumber=CNumber, qid=qid)
         session.add(new_llm)

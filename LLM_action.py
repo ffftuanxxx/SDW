@@ -31,8 +31,10 @@ def submit_llm():
                 return redirect(url_for('llmsqid', qid=qid))  # 重定向到/llms/qid页面
         except ValueError:
             error_message = '请输入有效的数字。'
+            print(e)
         except Exception as e:
             error_message = str(e)
+            print(e)
 
     return render_template('submit_llm.html', qid=qid, error_message=error_message)
 
