@@ -14,9 +14,8 @@ def create_helptopic_view():
         title = request.form.get('title')
         topicq = request.form.get('topicq')
         topica = request.form.get('topica')
-        aimg = request.form.get('aimg')
         # 将 CNumber 传递给创建函数
-        helpTopic2.create_helptopic(title=title, topicq=topicq, topica=topica, cnumber=cnumber, aimg=aimg, session=db.session)
+        helpTopic2.create_helptopic(title=title, topicq=topicq, topica=topica, cnumber=cnumber, session=db.session)
         flash('Help topic created successfully!', 'success')
         return redirect(url_for('courses'))
     # 将 CNumber 传递到模板，以便在需要时使用
