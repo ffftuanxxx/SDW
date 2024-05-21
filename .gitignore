@@ -4,3 +4,4 @@
 *.pyc
 *.pyc
 *.idea
+__pycache__/search_course.cpython-310.pyc
