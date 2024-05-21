@@ -3,7 +3,7 @@ from new_control.register import Register123
 from app_pre import db,app
 from new_control.request import Requestment123
 from co_ import Request
-from co_ import AssignQ, Variation, HelpTopic
+from co_ import AssignQ, Variation, HelpTopic,Topic
 @app.route('/submit_request', methods=['GET', 'POST'])
 def submit_request():
     qid = request.args.get('qid', default=None, type=int)
@@ -77,5 +77,26 @@ def approve_request(request_id):
 
 @app.route('/approve_request1')
 def helptopics_view():
-    helptopics = db.session.query(HelpTopic).all()  # 假设 HelpTopic 是你的模型名称
+    helptopics = db.session.query(Topic).all()  # 假设 HelpTopic 是你的模型名称
     return render_template('approve_request1.html', helptopics=helptopics)
+
+
+@app.route('/approve_topic/<int:topicid>', methods=['POST'])
+def approve_topic(topicid):
+    # 在数据库中查找对应的主题
+    topics = db.session.query(Topic).all()
+    topic = None
+    for t in topics:
+        if t.topicid == topicid:
+            topic = t
+            break
+
+    if topic:
+        # 将主题的 approved 字段设为 1
+        topic.approved = 1
+        db.session.commit()
+        flash('主题已批准', 'success')
+    else:
+        flash('未找到对应的主题', 'error')
+
+    return redirect(url_for('back'))
