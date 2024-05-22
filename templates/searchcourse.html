@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>搜索课程</title>
+    <title>search course</title>
 </head>
 <body>
-    <h1>搜索课程</h1>
+    <h1>search course</h1>
     <a href="/back">Back</a>
     <form method="POST" action="/searchcourse">
-        <label for="search_name_num">按名称/编号搜索：</label>
+        <label for="search_name_num">Search by name/number：</label>
         <input type="text" name="search_name_num" id="search_name_num" placeholder="请输入搜索信息">
         <br>
-        <label for="search_category">按课程类别搜索：</label>
+        <label for="search_category">Search by course category ：</label>
         <input type="text" name="search_category" id="search_category" placeholder="请输入搜索信息">
         <br>
-        <label for="search_score">按分数搜索：</label>
+        <label for="search_score">Search by score：</label>
         <input type="text" name="search_score" id="search_score" placeholder="请输入搜索信息">
         <br>
         <input type="submit" value="搜索">
@@ -34,7 +34,7 @@
 
             if (filledFields > 1) {
                 event.preventDefault();
-                alert("只能同时填写一个搜索框！");
+                alert("You can only fill in one search box at a time");
             }
         });
     </script>

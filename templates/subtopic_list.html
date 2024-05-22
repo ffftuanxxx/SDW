@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>子主题列表 (主题ID: {{ topicid }})</h1>
+<h1>List of subtopics (theme ID: {{ topicid }})</h1>
 <form method="POST" action="{{ url_for('subtopic_list', topicid=topicid) }}">
-    <label for="subtxt">新子主题文本:</label>
+    <label for="subtxt">New subtopic text:</label>
     <input type="text" id="subtxt" name="subtxt" required>
-    <button type="submit">创建新子主题</button>
+    <button type="submit">Create a new subtopic</button>
 </form>
 <table>
     <thead>
@@ -22,11 +22,11 @@
             <td>{{ subtopic.subtxt }}</td>
             <td>
                 <!-- 传递子主题ID (subid) 到问题列表页面 -->
-                <a href="{{ url_for('subq_list', subid=subtopic.subid) }}">查看问题</a>
+                <a href="{{ url_for('subq_list', subid=subtopic.subid) }}">view question</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a href="{{ url_for('topic_list', CNumber=CNumber) if CNumber else '#' }}" class="btn btn-danger">返回主题列表</a>
+<a href="{{ url_for('topic_list', CNumber=CNumber) if CNumber else '#' }}" class="btn btn-danger">Back to topic list</a>
 {% endblock %}

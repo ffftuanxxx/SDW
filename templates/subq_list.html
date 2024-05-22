@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>问题列表 (子主题ID: {{ subtopic.subid }})</h1>
+<h1>List of questions (subtopic ids: {{ subtopic.subid }})</h1>
 <form method="POST" action="{{ url_for('subq_list', subid=subtopic.subid) }}">
-    <label for="subqtext">新问题文本:</label>
+    <label for="subqtext">New problem text:</label>
     <input type="text" id="subqtext" name="subqtext" required>
-    <label for="qanswer">问题答案:</label>
+    <label for="qanswer">question answer:</label>
     <input type="text" id="qanswer" name="qanswer" required>
-    <button type="submit">创建新问题</button>
+    <button type="submit">create question</button>
 </form>
 
 {% if subqs %}
 <table>
     <thead>
         <tr>
-            <th>问题ID</th>
-            <th>问题文本</th>
-            <th>问题答案</th>
+            <th>question ID</th>
+            <th>question content</th>
+            <th>question answer</th>
         </tr>
     </thead>
     <tbody>
@@ -30,8 +30,8 @@
     </tbody>
 </table>
 {% else %}
-<p>此子主题还没有问题。</p>
+<p>There are no problems with this subtopic</p>
 {% endif %}
 
-<a href="{{ url_for('subtopic_list', topicid=subtopic.topicid) }}" class="btn btn-danger">返回子主题列表</a>
+<a href="{{ url_for('subtopic_list', topicid=subtopic.topicid) }}" class="btn btn-danger">returns a list of subtopics</a>
 {% endblock %}

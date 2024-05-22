@@ -9,10 +9,10 @@
 <table>
     <tr>
         <th>question ID</th>
-        <th>问题内容</th>
-        <th>问题图片</th>
-        <th>类别</th>
-        <th>答案图片</th>
+        <th>question content</th>
+        <th>question image</th>
+        <th>category</th>
+        <th>answer image</th>
     </tr>
     <tr>
         <td>{{ details.qid }}</td>
@@ -27,8 +27,8 @@
     </tr>
 </table>
 <form method="GET" action="/searchcourse">
-    <button type="submit">返回搜索页面</button>
+    <button type="submit">Return to search page</button>
 </form>
 <form method="GET" action="/llms/{{ details.qid }}">
-    <button type="submit">实验列表</button>
+    <button type="submit">LLM list</button>
 </form> {% endblock %}

@@ -1,13 +1,13 @@
-<!DOCTYPE html> <html> <head><title>搜索结果</title></head> <body> <h1>搜索结果</h1>
+<!DOCTYPE html> <html> <head><title>search result</title></head> <body> <h1>search result</h1>
 
 {% if topics %}
-<h2>相关主题</h2>
+<h2>related subject</h2>
 <table>
     <thead>
         <tr>
-            <th>主题ID</th>
-            <th>主题文本</th>
-            <th>子主题列表</th>
+            <th>topic ID</th>
+            <th>topic content</th>
+            <th>subtopic</th>
         </tr>
     </thead>
     <tbody>
@@ -25,26 +25,26 @@
 </table>
 {% endif %}
 
-<h2>问题列表</h2>
+<h2>question list</h2>
 <table>
     <tr>
         <th>Qid</th>
         <th>Qtext</th>
-        <th>操作</th>
+        <th>action</th>
     </tr>
     {% for assign_q in assign_qs %}
     <tr>
         <td>{{ assign_q.qid }}</td>
         <td>{{ assign_q.qtext }}</td>
-        <td><a href="/question_details/{{ assign_q.qid }}">详情</a></td>
+        <td><a href="/question_details/{{ assign_q.qid }}">detail</a></td>
         {% if session['uclass'] == 1 %}
-        <td><a href="{{ url_for('submit_request', qid=assign_q.qid) }}">提交请求</a></td>
+        <td><a href="{{ url_for('submit_request', qid=assign_q.qid) }}">request</a></td>
         {% endif %}
     </tr>
     {% endfor %}
 </table>
 
 <form method="GET" action="/searchcourse">
-    <button type="submit">返回搜索页面</button>
+    <button type="submit">back search page</button>
 </form>
 </body> </html>
