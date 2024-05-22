@@ -8,9 +8,11 @@
     <p>LLM评分: {{ llm.llmscore }}</p>
     <p>Qid: {{ llm.qid }}</p>
     <h3>评论:</h3>
+{% if comment %}
     {% for comment in com %}
         <p>{{ comment.comments }}</p>
     {% endfor %}
+{% endif %}
     <form action="{{ url_for('view_llm', llm_id=llm.llm_id) }}" method="post">
         <input type="text" name="comment" placeholder="输入新评论">
         <button type="submit">添加评论</button>
