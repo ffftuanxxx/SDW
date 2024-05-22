@@ -2,17 +2,17 @@
 
 {% block content %}
 
-<h1>主题列表 (课程编号: {{ CNumber }})</h1>
-<form method="POST" action="{{ url_for('topic_list', CNumber=CNumber) }}"><label for="topictxt">新主题文本:</label>
+<h1>List of topics (course No: {{ CNumber }})</h1>
+<form method="POST" action="{{ url_for('topic_list', CNumber=CNumber) }}"><label for="topictxt">New topic text:</label>
     <input type="text" id="topictxt" name="topictxt" required>
-    <button type="submit">创建新主题</button>
+    <button type="submit">Create a new theme</button>
 </form>
 <table>
     <thead>
     <tr>
-        <th>主题ID</th>
-        <th>主题文本</th>
-        <th>子主题列表</th>
+        <th>topic ID</th>
+        <th>topic content</th>
+        <th>subtopic content</th>
     </tr>
     </thead>
     <tbody> {% for topic in topics %} {% if topic.approved == 1 %}
@@ -20,8 +20,8 @@
         <td>{{ topic.topicid }}</td>
         <td>{{ topic.topictxt }}</td>
         <td> <!-- 传递主题ID (topicid) 到子主题列表页面 --> <a
-                href="{{ url_for('subtopic_list', topicid=topic.topicid) }}">查看子主题</a></td>
+                href="{{ url_for('subtopic_list', topicid=topic.topicid) }}">View subtopics</a></td>
     </tr>
     {% endif %} {% endfor %}
     </tbody>
-</table> <a href="{{ url_for('back') }}" class="btn btn-danger">返回</a> {% endblock %}
+</table> <a href="{{ url_for('back') }}" class="btn btn-danger">back</a> {% endblock %}

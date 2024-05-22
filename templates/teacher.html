@@ -9,7 +9,7 @@ teacherpage
 <a href="/searchcourse"><button>search assignment questions</button></a>
 <a href="/courses"><button>course list</button></a>
 </body>
-<a href="{{ url_for('logout') }}" class="btn btn-danger">退出登录</a>
+<a href="{{ url_for('logout') }}" class="btn btn-danger">login out</a>
 <script>
   {% if error_message %}
     alert("{{ error_message }}");
