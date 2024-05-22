@@ -9,10 +9,10 @@
 <table>
     <thead>
     <tr>
-        <th>主题ID</th>
-        <th>课程编号</th>
-        <th>主题文本</th>
-        <th>操作</th>
+        <th>topic ID</th>
+        <th>course number</th>
+        <th>topic text</th>
+        <th>action</th>
     </tr>
     </thead>
     <tbody> {% for topic in helptopics %} {% if topic.approved == 0 %}
@@ -28,7 +28,7 @@
     </tr>
     {% endif %} {% else %}
     <tr>
-        <td colspan="4">没有找到未批准的帮助主题。</td>
+        <td colspan="4">No unapproved help topic found</td>
     </tr>
     {% endfor %}
     </tbody>

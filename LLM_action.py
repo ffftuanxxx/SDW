@@ -23,14 +23,14 @@ def submit_llm():
 
             llmscore = float(llmscore)  # 确认 llmscore 是浮点数
             if llmscore < 0 or llmscore > max_score:
-                error_message = f'LLM分数必须在0到{max_score}之间。'
+                error_message = f'LLM the score must be between 0 and {max_score}.'
             else:
                 LLM222.create_llm(homeproblem=homeproblem, usedanswer=usedanswer, answerimage=answerimage,
                                     llmscore=llmscore, comments=comments, CNumber=CNumber, qid=qid, session=db.session)
-                flash('LLM记录创建成功！', 'success')
+                flash('The LLM record is created successfully. Procedure', 'success')
                 return redirect(url_for('llmsqid', qid=qid))  # 重定向到/llms/qid页面
         except ValueError:
-            error_message = '请输入有效的数字。'
+            error_message = 'Please enter a valid number.'
             print(e)
         except Exception as e:
             error_message = str(e)
@@ -44,7 +44,7 @@ def view_llm(llm_id):
     llm = LLM222.get_llm(llm_id=llm_id, session=db.session)
     comment = LLM222.get_comment(llm_id=llm_id, session=db.session)
     if llm is None:
-        flash(f"LLM ID {llm_id} 不存在!", 'error')
+        flash(f"LLM ID {llm_id} not exist", 'error')
         return redirect(url_for('index'))  # 请根据需要修改跳转的默认页面
     if request.method == 'POST':
         new_comment = request.form['comment']

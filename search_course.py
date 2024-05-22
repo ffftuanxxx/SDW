@@ -18,7 +18,7 @@ def search():
         # 合并查询条件，减少数据库查询次数
         if search_name_num:
             if any(char in search_name_num for char in '#@!$%^&*()'):
-                flash('输入包含非法字符,请重新输入。', 'warning')
+                flash('Input contains illegal characters, please re-enter.', 'warning')
                 return render_template('searchcourse.html')
             else:
                 name_num_courses = db.session.query(Course).filter(
@@ -33,13 +33,13 @@ def search():
             try:
                 valid_score = float(search_score)
                 if not (0 <= valid_score <= 100):
-                    flash('输入的分数无效,请输入0到100之间的数值。', 'warning')
+                    flash('The entered score is invalid. Please enter a value between 0 and 100.', 'warning')
                 else:
                     score_assign_qs = db.session.query(AssignQ).filter_by(score=valid_score).all()
                     assign_qs.extend(score_assign_qs)
                     course_numbers.update([assign_q.CNumber for assign_q in score_assign_qs])
             except ValueError:
-                flash('请输入一个有效的数字作为分数。', 'warning')
+                flash('Please enter a valid number as the score.', 'warning')
 
         # 查询相关课程的分配查询和主题
         if course_numbers:
@@ -47,7 +47,7 @@ def search():
             topics.extend(db.session.query(Topic).filter(Topic.CNumber.in_(course_numbers)).all())
 
         if not assign_qs and not topics:
-            flash('没有找到相关的分配查询或主题,请检查输入。', 'warning')
+            flash('No assignment query or topic was found, please check the input.', 'warning')
 
         return render_template('searchresult.html', assign_qs=assign_qs, topics=topics)
     else:

@@ -55,17 +55,17 @@ def verify_code():
         has_digit = any(char.isdigit() for char in password)
 
         if not (has_uppercase and has_lowercase and has_digit):
-            error_message = '密码必须包含至少一个大写字母、一个小写字母和一个数字。'
+            error_message = 'The password must contain at least one uppercase letter, one lowercase letter, and one number.'
             return render_template('verify_code.html', error_message=error_message)
 
         if (password != confirm_password):
-            error_message = "两次输入的密码不匹配，请重新输入。"
+            error_message = "The two passwords do not match. Please re-enter them."
             return render_template('verify_code.html', error_message=error_message)
 
 
         # 检查用户输入的验证码是否正确
         if str(verification_code) != str(session.get('verification_code')):
-            error_message = '无效的验证码。'
+            error_message = 'Invalid verification code.'
             return render_template('verify_code.html', error_message=error_message)
 
         # 根据邮箱后缀判断用户类别
@@ -74,7 +74,7 @@ def verify_code():
 
         try:
             Register123.create_user(uclass, email, password, db.session)
-            flash('注册成功！', 'success')
+            flash('registered successfully', 'success')
             set_user_class(uclass,email)
             #print(111)
             return redirect(url_for('back'))

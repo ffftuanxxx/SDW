@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>LLM详情</h1>
+<h1>LLM detail</h1>
 {% if llm %}
-    <p>作业问题: {{ llm.homeproblem }}</p>
-    <p>答案图片: {{ llm.answerimage }}</p>
-    <p>LLM评分: {{ llm.llmscore }}</p>
+    <p>question: {{ llm.homeproblem }}</p>
+    <p>answer: {{ llm.answerimage }}</p>
+    <p>LLM score: {{ llm.llmscore }}</p>
     <p>Qid: {{ llm.qid }}</p>
-    <h3>评论:</h3>
+    <h3>comment:</h3>
 {% if comment %}
     {% for comment in com %}
         <p>{{ comment.comments }}</p>
     {% endfor %}
 {% endif %}
     <form action="{{ url_for('view_llm', llm_id=llm.llm_id) }}" method="post">
-        <input type="text" name="comment" placeholder="输入新评论">
-        <button type="submit">添加评论</button>
+        <input type="text" name="comment" placeholder="Enter a new comment">
+        <button type="submit">add a comment</button>
     </form>
 {% else %}
-    <p>该LLM记录没有可用的详细信息。</p>
+    <p>No details are available for this LLM record。</p>
 {% endif %}
-<button onclick="location.href='{{ url_for('llmsqid', qid=llm.qid) }}'">返回</button>
+<button onclick="location.href='{{ url_for('llmsqid', qid=llm.qid) }}'">back</button>
 {% if session['uclass'] == 1 %}
-<a href="{{ url_for('update_llm_view', llm_id=llm.llm_id) }}">编辑</a>
+<a href="{{ url_for('update_llm_view', llm_id=llm.llm_id) }}">edit</a>
 {% endif %}
 
 {% endblock %}

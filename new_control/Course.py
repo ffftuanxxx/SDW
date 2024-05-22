@@ -13,7 +13,6 @@ class Course1():
         new_course = Course(CName=CName,CDes=CDes,Ccategory=Ccategory)
         session.add(new_course)
         session.commit()
-        print(f"新课程记录创建成功, cnumber: {new_course.CNumber}")
         return new_course.CNumber
 
     def get_course_num(cnumber, session):
@@ -23,7 +22,6 @@ class Course1():
         course = session.query(Course).filter_by(CNumber=cnumber).first()
 
         if not course:
-            print(f"错误: 课程记录ID {cnumber} 不存在!")
             return None
 
         return course
@@ -44,7 +42,6 @@ class Course1():
         courses = session.query(Course).filter(or_(Course.CName.like(search_pattern), Course.CNumber.like(search_pattern))).all()
 
         if not courses:
-            print(f"错误: 没有找到与 '{CName}' 相关的课程记录!")
             return []
 
         return courses

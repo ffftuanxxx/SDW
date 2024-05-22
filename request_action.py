@@ -95,8 +95,8 @@ def approve_topic(topicid):
         # 将主题的 approved 字段设为 1
         topic.approved = 1
         db.session.commit()
-        flash('主题已批准', 'success')
+        flash('Subject approved', 'success')
     else:
-        flash('未找到对应的主题', 'error')
+        flash('No corresponding topic found', 'error')
 
     return redirect(url_for('back'))

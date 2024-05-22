@@ -14,13 +14,11 @@ class assignq():
         """
         course = session.query(Course).filter_by(CNumber=CNumber).first()
         if not course:
-            print(f"错误: 课程编号 '{CNumber}' 不存在!")
             return None
 
         new_question = AssignQ(CNumber=CNumber, qtext=qtext, category=category, picturename=picturename, score=score,qimg=qimg)
         session.add(new_question)
         session.commit()
-        print(f"新问题创建成功, qid: {new_question.qid}")
         return new_question.qid
 
 
@@ -33,7 +31,6 @@ class assignq():
 
         # 如果问题不存在
         if not question:
-            print(f"错误: 问题ID {qid} 不存在!")
             return None
 
         return question

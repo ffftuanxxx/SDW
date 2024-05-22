@@ -8,7 +8,6 @@ class helpTopic2():
         new_topic = HelpTopic(title=title, topicq=topicq, topica=topica, CNumber=cnumber)  # 添加 CNumber
         session.add(new_topic)
         session.commit()
-        print(f"新帮助主题创建成功, topic_id: {new_topic.topic_id}")
         return new_topic.topic_id
 
     def get_all_helptopics(session):

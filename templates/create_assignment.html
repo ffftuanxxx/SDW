@@ -2,16 +2,16 @@
 
 {% block header %}
 
-<h1>{% block title %}创建新作业题{% endblock %}</h1> {% endblock %} {% block content %}
+<h1>{% block title %}Create a new assignment{% endblock %}</h1> {% endblock %} {% block content %}
 <form method="post" enctype="multipart/form-data"><label for="qtext">题干:</label> <textarea name="qtext" id="qtext"
                                                                                              required></textarea> <br>
-    <label for="category">类别:</label> <input type="text" name="category" id="category" required> <br> <label
-            for="picture">图片 (如有):</label> <input type="file" name="picture" id="picture" accept="image/*"> <input
+    <label for="category">category:</label> <input type="text" name="category" id="category" required> <br> <label
+            for="picture">image:</label> <input type="file" name="picture" id="picture" accept="image/*"> <input
             type="hidden" name="picturename" id="picturename"> <br> <label for="qimg">题目图片 (如有):</label> <input
             type="file" name="qimg" id="qimg" accept="image/*"> <input type="hidden" name="qimgname" id="qimgname"> <br>
-    <label for="score">分值:</label> <input type="number" name="score" id="score" step="0.1" required> <br> <br> <input
+    <label for="score">score:</label> <input type="number" name="score" id="score" step="0.1" required> <br> <br> <input
             type="submit" value="创建题目"></form>
-<button>返回</button>
+<button>back</button>
 <script> {% if error_message %}
 alert("{{ error_message }}");
 {% endif %}

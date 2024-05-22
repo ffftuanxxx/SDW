@@ -11,7 +11,6 @@ class TopicManager:
         new_topic = Topic(CNumber=CNumber, topictxt=topictxt)
         session.add(new_topic)
         session.commit()
-        print(f"新主题创建成功, topicid: {new_topic.topicid}")
         return new_topic.topicid
 
     def get_all_topics(self):
@@ -28,7 +27,6 @@ class TopicManager:
         new_subtopic = Subtopic(topicid=topicid, subtxt=subtxt)
         session.add(new_subtopic)
         session.commit()
-        print(f"新子主题创建成功, subid: {new_subtopic.subid}")
         return new_subtopic.subid
 
     def get_all_subtopics(self):
@@ -45,7 +43,6 @@ class TopicManager:
         new_question = SubtopicQ(subid=subid, subqtext=subqtext, qanswer=qanswer)
         session.add(new_question)
         session.commit()
-        print(f"新子主题问题创建成功, subqid: {new_question.subqid}")
         return new_question.subqid
 
     def get_all_subtopic_questions(self):
