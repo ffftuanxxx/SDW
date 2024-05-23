@@ -4,7 +4,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 
 # 创建一个Engine实例
-engine = create_engine('mysql+pymysql://llm:2501004@47.109.73.150:3306/llm')
+engine = create_engine('')
 
 # 创建MetaData实例
 metadata = MetaData()
